@@ -6,6 +6,7 @@ import lk.hostelManagement.pos.util.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +19,7 @@ public class ReserveDAOImpl implements ReserveDAO {
         ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Reserve");
         ArrayList<Reserve> allReserves = new ArrayList<>();
         while (rst.next()) {
-            allReserves.add(new Reserve(rst.getString(1), rst.getString(2), rst.getString(3), rst.getDate(4), rst.getDouble(5)));
+            allReserves.add(new Reserve(rst.getString(1), rst.getString(2), rst.getString(3), LocalDate.parse(rst.getString(4)), rst.getDouble(5)));
         }
         return allReserves;
     }
@@ -42,9 +43,9 @@ public class ReserveDAOImpl implements ReserveDAO {
 
     @Override
     public Reserve search(String id) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery("SELECT res_id FROM Reserve WHERE res_id LIKE ?", id);
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Reserve WHERE res_id=?", id);
         if (rst.next()) {
-            return new Reserve(rst.getString(1), rst.getString(2), rst.getString(3), rst.getDate(4), rst.getDouble(5));
+            return new Reserve(rst.getString(1), rst.getString(2), rst.getString(3), LocalDate.parse(rst.getString(4)), rst.getDouble(5));
         }
         return null;
     }
@@ -52,5 +53,11 @@ public class ReserveDAOImpl implements ReserveDAO {
     @Override
     public boolean exist(String id) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeQuery("SELECT res_id FROM Reserve WHERE res_id=?", id).next();
+    }
+
+    @Override
+    public String generateNewId() throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery("SELECT res_id FROM Reserve ORDER BY res_id DESC LIMIT 1;");
+        return rst.next() ? String.format("REG-%03d", (Integer.parseInt(rst.getString("res_id").replace("REG-", "")) + 1)) : "REG-001";
     }
 }

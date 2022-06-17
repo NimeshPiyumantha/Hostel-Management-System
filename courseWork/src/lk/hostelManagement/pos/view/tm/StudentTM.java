@@ -18,6 +18,6 @@ public class StudentTM {
     private String name;
     private String address;
     private String contact_no;
-    private Date dob;
+    private String dob;
     private String gender;
 }

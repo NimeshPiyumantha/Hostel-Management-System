@@ -20,6 +20,7 @@ public interface ReserveBO extends SuperBO {
 
     boolean deleteReserve(String id) throws SQLException, ClassNotFoundException;
 
+    String generateNewId() throws SQLException, ClassNotFoundException;
 
     boolean existReserveID(String id) throws SQLException, ClassNotFoundException;
 

@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * @author : Nimesh Piyumantha
@@ -15,9 +14,12 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReserveTM {
+
     private String res_id;
     private String student_id;
     private String room_id;
-    private Date date;
+    private LocalDate date;
     private double key_money;
+
+
 }

@@ -44,6 +44,11 @@ public class ReserveBOImpl implements ReserveBO {
 
     }
 
+    @Override
+    public String generateNewId() throws SQLException, ClassNotFoundException {
+        return reserveDAO.generateNewId();
+    }
+
 
     @Override
     public boolean existReserveID(String id) throws SQLException, ClassNotFoundException {

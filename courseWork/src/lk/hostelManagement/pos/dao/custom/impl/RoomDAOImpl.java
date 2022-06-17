@@ -42,7 +42,7 @@ public class RoomDAOImpl implements RoomDAO {
 
     @Override
     public Room search(String id) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery("SELECT room_id FROM Room WHERE room_id LIKE ?", id);
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Room WHERE room_id=?", id);
         if (rst.next()) {
             return new Room(rst.getString(1), rst.getString(2), rst.getDouble(3), rst.getString(4));
         }

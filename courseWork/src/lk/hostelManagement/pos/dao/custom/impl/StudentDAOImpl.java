@@ -18,7 +18,7 @@ public class StudentDAOImpl implements StudentDAO {
         ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Student");
         ArrayList<Student> allStudents = new ArrayList<>();
         while (rst.next()) {
-            allStudents.add(new Student(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getDate(5), rst.getString(6)));
+            allStudents.add(new Student(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6)));
         }
         return allStudents;
     }
@@ -40,9 +40,9 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public Student search(String id) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery("SELECT student_id FROM Student WHERE student_id LIKE ?", id);
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Student WHERE student_id=?", id);
         if (rst.next()) {
-            return new Student(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getDate(5), rst.getString(6));
+            return new Student(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6));
         }
         return null;
     }
