@@ -46,9 +46,9 @@ public class AdminDashBoardFormController {
                 case "imgRooms":
                     root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("/lk/hostelManagement/pos/view/ManageRoomForm.fxml")));
                     break;
-               /* case "imgKeyMoney":
-                    root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("/lk/hostelManagement/pos/view/ManageItemForm.fxml")));
-                    break;*/
+                case "imgKeyMoney":
+                    root = FXMLLoader.load(Objects.requireNonNull(this.getClass().getResource("/lk/hostelManagement/pos/view/FindRemainKeyMoneyFrom.fxml")));
+                    break;
             }
 
             if (root != null) {

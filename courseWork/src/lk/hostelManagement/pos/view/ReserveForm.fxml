@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -85,12 +84,12 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtQty" labelFloat="true" layoutX="421.0" layoutY="262.0" prefHeight="39.0" prefWidth="292.0" promptText="QTY">
+            <JFXTextField fx:id="txtQty" labelFloat="true" layoutX="358.0" layoutY="262.0" prefHeight="39.0" prefWidth="150.0" promptText="QTY">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtMonthlyRent" labelFloat="true" layoutX="41.0" layoutY="262.0" prefHeight="39.0" prefWidth="332.0" promptText="Monthly Rent">
+            <JFXTextField fx:id="txtMonthlyRent" labelFloat="true" layoutX="41.0" layoutY="262.0" prefHeight="39.0" prefWidth="267.0" promptText="Monthly Rent">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -138,26 +137,16 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <CheckBox fx:id="checkBoxPaid" layoutX="751.0" layoutY="268.0" mnemonicParsing="false" text="Paid Fee">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </CheckBox>
-            <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="678.0" layoutY="76.0" prefHeight="39.0" prefWidth="206.0" promptText="RES-001">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </JFXTextField>
-            <ImageView fitHeight="40.0" fitWidth="39.0" layoutX="845.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@assets/images/search.png" />
-               </image>
-            </ImageView>
             <JFXButton id="btnAddNew" fx:id="btnStudent" layoutX="942.0" layoutY="76.0" onAction="#btnStudentOnAction" prefHeight="39.0" prefWidth="150.0" text="Add Student">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </JFXButton>
+            <JFXTextField fx:id="txtKeyMoney" labelFloat="true" layoutX="560.0" layoutY="269.0" prefHeight="39.0" prefWidth="227.0" promptText="Key Money">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </JFXTextField>
          </children>
       </AnchorPane>
     </children>

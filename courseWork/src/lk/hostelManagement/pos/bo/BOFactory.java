@@ -1,9 +1,6 @@
 package lk.hostelManagement.pos.bo;
 
-import lk.hostelManagement.pos.bo.custom.Impl.PurchaseRoomBOImpl;
-import lk.hostelManagement.pos.bo.custom.Impl.ReserveBOImpl;
-import lk.hostelManagement.pos.bo.custom.Impl.RoomBOImpl;
-import lk.hostelManagement.pos.bo.custom.Impl.StudentBOImpl;
+import lk.hostelManagement.pos.bo.custom.Impl.*;
 
 /**
  * @author : Nimesh Piyumantha
@@ -29,12 +26,14 @@ public class BOFactory {
                 return new ReserveBOImpl();
             case PurchaseRoom:
                 return new PurchaseRoomBOImpl();
+            case Custom:
+                return new QueryBOImpl();
             default:
                 return null;
         }
     }
 
     public enum BOTypes {
-        STUDENT, ROOM, RESERVE,PurchaseRoom
+        STUDENT, ROOM, RESERVE,PurchaseRoom,Custom
     }
 }

@@ -46,12 +46,18 @@ SHOW TABLES;
 DESCRIBE Reserve;
 
 INSERT INTO Student
-VALUES ('ST-001', 'Nimesh', 'Galle', '071234567', '2002-12-12', 'Male'),
-       ('ST-002', 'Nimesh', 'Galle', '071234567', '2002-12-12', 'Male');
+VALUES ('STU-001', 'Nimesh', 'Galle', '071234567', '2002-12-12', 'Male'),
+       ('STU-002', 'Nimesh', 'Galle', '071234567', '2002-12-12', 'Male');
 
 INSERT INTO Room
 VALUES ('Roo-001', 'Single', 7000, '31'),
        ('Roo-002', 'Double', 10000, '23');
 
 use HostelManagement;
+SELECT Reserve.res_id,Reserve.student_id,Reserve.room_id,Room.monthly_rent,Reserve.date,Reserve.key_money,(room.monthly_rent-Reserve.key_money) FROM Room INNER JOIN Reserve ON Room.room_id = Reserve.room_id order by res_id;
+
+
 SELECT res_id FROM Reserve WHERE res_id;
+/*SELECT OrderDetail.ItemCode, Item.description, Item.packSize, Item.qtyOnHand, Item.unitPrice, sum(OrderQty),sum(total)FROM Item INNER JOIN OrderDetail on Item.ItemCode = OrderDetail.ItemCode GROUP BY ItemCode ORDER BY sum(OrderQty) DESC limit 1;
+*/
+

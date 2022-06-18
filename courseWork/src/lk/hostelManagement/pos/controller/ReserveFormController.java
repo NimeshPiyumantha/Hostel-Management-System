@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,7 +28,6 @@ import lk.hostelManagement.pos.dto.StudentDTO;
 import lk.hostelManagement.pos.util.NotificationController;
 import lk.hostelManagement.pos.util.UILoader;
 import lk.hostelManagement.pos.view.tm.ReserveTM;
-import lk.hostelManagement.pos.view.tm.StudentTM;
 
 import java.io.IOException;
 import java.net.URL;
@@ -64,16 +62,12 @@ public class ReserveFormController implements Initializable {
     public JFXComboBox<String> cmbStudentId;
     public JFXTextField txtStudentName;
     public Label lblTime;
-    public CheckBox checkBoxPaid;
-    public JFXTextField txtSearch;
     public JFXButton btnStudent;
+    public JFXTextField txtKeyMoney;
     private String RegID;
 
 
     public void btnReserveOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        double rentFee = Double.parseDouble(txtMonthlyRent.getText());
-//        purchaseRoomBO.PurchaseRoom(new ReserveDTO(llbResId.getText(), cmbStudentId.getValue(), cmbRoomId.getValue(), LocalDate.now(), rentFee));
-//        NotificationController.SuccessfulTableNotification("Room Reserve", "Room Reserved in student ");
 
         cmbStudentId.setDisable(false);
         cmbRoomId.setDisable(false);
@@ -82,10 +76,11 @@ public class ReserveFormController implements Initializable {
         txtMonthlyRent.setDisable(false);
         txtStudentName.setDisable(false);
 
-        boolean b = saveReserve(RegID, cmbStudentId.getValue(), cmbRoomId.getValue(), LocalDate.now(), rentFee);
+        boolean b = saveReserve(RegID, cmbStudentId.getValue(), cmbRoomId.getValue(), LocalDate.now(), Double.parseDouble(txtKeyMoney.getText()));
         if (b) {
 
             NotificationController.SuccessfulTableNotification("Room Reserve", "Room Reserved in student ");
+
         } else {
             System.out.println(b);
             NotificationController.UnSuccessfulTableNotification("Room Reserve", "Room Reserved in student ");
@@ -100,6 +95,8 @@ public class ReserveFormController implements Initializable {
         txtQty.clear();
         txtMonthlyRent.clear();
         txtStudentName.clear();
+        loadAllReserve();
+
     }
 
     //----------------Save order---------------//
@@ -196,8 +193,7 @@ public class ReserveFormController implements Initializable {
                     txtMonthlyRent.setText(String.valueOf(room.getMonthly_rent()));
 
                     Optional<ReserveTM> optionalReserve = tblReserve.getItems().stream().filter(detail -> detail.getRoom_id().equals(newRoomId)).findFirst();
-               //     txtQty.setText((optionalReserve.isPresent() ? room.getQty() - optionalReserve.get().getQty()) : room.getQty()) + "");
-
+                    //     txtQty.setText((optionalReserve.isPresent() ? room.getQty() - optionalReserve.get().getQty()) : room.getQty()) + "");
 
 
                 } catch (SQLException | ClassNotFoundException throwables) {
@@ -212,7 +208,7 @@ public class ReserveFormController implements Initializable {
             }
         });
 
-      }
+    }
 
     private void loadAllReserve() {
         tblReserve.getItems().clear();
@@ -220,7 +216,7 @@ public class ReserveFormController implements Initializable {
         try {
             ArrayList<ReserveDTO> allStudent = reserveBO.getAllReserve();
             for (ReserveDTO reserveDTO : allStudent) {
-                tblReserve.getItems().add(new ReserveTM(reserveDTO.getRes_id(),reserveDTO.getStudent_id(),reserveDTO.getRoom_id(),reserveDTO.getDate(),reserveDTO.getKey_money()));
+                tblReserve.getItems().add(new ReserveTM(reserveDTO.getRes_id(), reserveDTO.getStudent_id(), reserveDTO.getRoom_id(), reserveDTO.getDate(), reserveDTO.getKey_money()));
             }
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
