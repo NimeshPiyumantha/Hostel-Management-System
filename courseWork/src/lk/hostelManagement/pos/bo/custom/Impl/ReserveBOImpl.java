@@ -3,8 +3,8 @@ package lk.hostelManagement.pos.bo.custom.Impl;
 import lk.hostelManagement.pos.bo.custom.ReserveBO;
 import lk.hostelManagement.pos.dao.DAOFactory;
 import lk.hostelManagement.pos.dao.custom.ReserveDAO;
-import lk.hostelManagement.pos.dto.ReserveDTO;
-import lk.hostelManagement.pos.entity.Reserve;
+import lk.hostelManagement.pos.dto.ReservationDTO;
+import lk.hostelManagement.pos.entity.Reservation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,24 +17,23 @@ public class ReserveBOImpl implements ReserveBO {
     private final ReserveDAO reserveDAO = (ReserveDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.RESERVE);
 
     @Override
-    public ArrayList<ReserveDTO> getAllReserve() throws SQLException, ClassNotFoundException {
-        ArrayList<Reserve> all = reserveDAO.getAll();
-        ArrayList<ReserveDTO> allReserve = new ArrayList<>();
-        for (Reserve reserve : all) {
-            allReserve.add(new ReserveDTO(reserve.getRes_id(), reserve.getStudent_id(), reserve.getRoom_id(), reserve.getDate(), reserve.getKey_money()));
+    public ArrayList<ReservationDTO> getAllReserve() throws SQLException, ClassNotFoundException {
+        ArrayList<Reservation> all = reserveDAO.getAll();
+        ArrayList<ReservationDTO> allReserve = new ArrayList<>();
+        for (Reservation reserve : all) {
+            allReserve.add(new ReservationDTO(reserve.getRes_id(), reserve.getDate(), reserve.getStudent_id(), reserve.getRoom_type_id(), reserve.getStatus()));
         }
         return allReserve;
     }
 
     @Override
-    public boolean saveReserve(ReserveDTO dto) throws SQLException, ClassNotFoundException {
-        return reserveDAO.save(new Reserve(dto.getRes_id(), dto.getStudent_id(), dto.getRoom_id(), dto.getDate(), dto.getKey_money()));
-
+    public boolean saveReserve(ReservationDTO dto) throws SQLException, ClassNotFoundException {
+        return reserveDAO.save(new Reservation(dto.getRes_id(), dto.getDate(), dto.getStudent_id(), dto.getRoom_type_id(), dto.getStatus()));
     }
 
     @Override
-    public boolean updateReserve(ReserveDTO dto) throws SQLException, ClassNotFoundException {
-        return reserveDAO.update(new Reserve(dto.getRes_id(), dto.getStudent_id(), dto.getRoom_id(), dto.getDate(), dto.getKey_money()));
+    public boolean updateReserve(ReservationDTO dto) throws SQLException, ClassNotFoundException {
+        return reserveDAO.update(new Reservation(dto.getRes_id(), dto.getDate(), dto.getStudent_id(), dto.getRoom_type_id(), dto.getStatus()));
 
     }
 

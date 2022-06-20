@@ -46,8 +46,8 @@ public class ManageRoomFormController implements Initializable {
     public void btnSave_OnAction(ActionEvent actionEvent) {
         String id = txtRoomId.getText();
         String type = txtRoomType.getText();
-        String qty = txtQty.getText();
-        double rent = Double.parseDouble(txtMRent.getText());
+        int qty = Integer.parseInt(txtQty.getText());
+        String key_money = txtMRent.getText();
 
        /* if (!id.matches("^[ROO-]{3}$")) {
             NotificationController.Warring("Room ID", "Invalid Room ID.Check STU-000 type in your entered value.");
@@ -72,8 +72,8 @@ public class ManageRoomFormController implements Initializable {
                 if (exitRooms(id)) {
                     NotificationController.WarringError("Save Rooms Warning", id, "Already exists ");
                 }
-                roomBO.saveRooms(new RoomDTO(id, type, rent, qty));
-                tblRoom.getItems().add(new RoomTM(id, type, rent, qty));
+                roomBO.saveRooms(new RoomDTO(id, type, key_money, qty));
+                tblRoom.getItems().add(new RoomTM(id, type, key_money, qty));
                 NotificationController.SuccessfulTableNotification("Save", "Rooms");
             } catch (SQLException e) {
                 NotificationController.WarringError("Save Rooms Warning", id + e.getMessage(), "Failed to save the Rooms ");
@@ -89,7 +89,7 @@ public class ManageRoomFormController implements Initializable {
                     NotificationController.WarringError("Update Rooms Warning", id, "There is no such Rooms associated with the ");
                 }
                 //Rooms update
-                roomBO.updateRooms(new RoomDTO(id, type, rent, qty));
+                roomBO.updateRooms(new RoomDTO(id, type, key_money, qty));
                 NotificationController.SuccessfulTableNotification("Update", "Rooms");
             } catch (SQLException e) {
                 NotificationController.WarringError("Update Rooms Warning", id + e.getMessage(), "Failed to update the Rooms ");
@@ -100,7 +100,7 @@ public class ManageRoomFormController implements Initializable {
             RoomTM selectedRoom = tblRoom.getSelectionModel().getSelectedItem();
             selectedRoom.setRoom_id(id);
             selectedRoom.setType(type);
-            selectedRoom.setMonthly_rent(rent);
+            selectedRoom.setKey_money(key_money);
             selectedRoom.setQty(qty);
             tblRoom.refresh();
         }
@@ -167,7 +167,7 @@ public class ManageRoomFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         tblRoom.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("room_id"));
         tblRoom.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("type"));
-        tblRoom.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("monthly_rent"));
+        tblRoom.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("key_money"));
         tblRoom.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("qty"));
 
 
@@ -182,8 +182,8 @@ public class ManageRoomFormController implements Initializable {
                 //------------------------Text Filed Load----------------------//
                 txtRoomId.setText(newValue.getRoom_id());
                 txtRoomType.setText(newValue.getType());
-                txtMRent.setText(newValue.getMonthly_rent() + "");
-                txtQty.setText(newValue.getQty());
+                txtMRent.setText(newValue.getKey_money() + "");
+                txtQty.setText(newValue.getQty() + "");
 
                 txtRoomId.setDisable(false);
                 txtRoomType.setDisable(false);
@@ -202,7 +202,7 @@ public class ManageRoomFormController implements Initializable {
         try {
             ArrayList<RoomDTO> allRoom = roomBO.getAllRooms();
             for (RoomDTO roomDTO : allRoom) {
-                tblRoom.getItems().add(new RoomTM(roomDTO.getRoom_id(), roomDTO.getType(), roomDTO.getMonthly_rent(), roomDTO.getQty()));
+                tblRoom.getItems().add(new RoomTM(roomDTO.getRoom_id(), roomDTO.getType(), roomDTO.getKey_money(), roomDTO.getQty()));
             }
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

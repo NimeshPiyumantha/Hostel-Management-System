@@ -14,6 +14,6 @@ import lombok.NoArgsConstructor;
 public class RoomDTO {
     private String room_id;
     private String type;
-    private double monthly_rent;
-    private String qty;
+    private String key_money;
+    private int qty;
 }

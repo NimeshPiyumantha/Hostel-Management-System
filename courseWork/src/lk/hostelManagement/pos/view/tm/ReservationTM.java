@@ -1,9 +1,14 @@
 package lk.hostelManagement.pos.view.tm;
 
+import lk.hostelManagement.pos.entity.Room;
+import lk.hostelManagement.pos.entity.Student;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 /**
@@ -13,13 +18,11 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReserveTM {
-
+public class ReservationTM {
     private String res_id;
-    private String student_id;
-    private String room_id;
     private LocalDate date;
-    private double key_money;
-
+    private String student_id;
+    private String room_type_id;
+    private String status;
 
 }

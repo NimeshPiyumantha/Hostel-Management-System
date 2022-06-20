@@ -22,12 +22,12 @@ import lk.hostelManagement.pos.bo.BOFactory;
 import lk.hostelManagement.pos.bo.custom.PurchaseRoomBO;
 import lk.hostelManagement.pos.bo.custom.ReserveBO;
 import lk.hostelManagement.pos.db.DBConnection;
-import lk.hostelManagement.pos.dto.ReserveDTO;
+import lk.hostelManagement.pos.dto.ReservationDTO;
 import lk.hostelManagement.pos.dto.RoomDTO;
 import lk.hostelManagement.pos.dto.StudentDTO;
 import lk.hostelManagement.pos.util.NotificationController;
 import lk.hostelManagement.pos.util.UILoader;
-import lk.hostelManagement.pos.view.tm.ReserveTM;
+import lk.hostelManagement.pos.view.tm.ReservationTM;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,7 +56,7 @@ public class ReserveFormController implements Initializable {
     public JFXTextField txtQty;
     public JFXTextField txtMonthlyRent;
     public Label lblDate;
-    public TableView<ReserveTM> tblReserve;
+    public TableView<ReservationTM> tblReserve;
     public Label llbResId;
     public JFXButton btnReserve;
     public JFXComboBox<String> cmbStudentId;
@@ -76,7 +76,7 @@ public class ReserveFormController implements Initializable {
         txtMonthlyRent.setDisable(false);
         txtStudentName.setDisable(false);
 
-        boolean b = saveReserve(RegID, cmbStudentId.getValue(), cmbRoomId.getValue(), LocalDate.now(), Double.parseDouble(txtKeyMoney.getText()));
+        boolean b = saveReserve(RegID, cmbStudentId.getValue(), cmbRoomId.getValue(), LocalDate.now(), txtKeyMoney.getText());
         if (b) {
 
             NotificationController.SuccessfulTableNotification("Room Reserve", "Room Reserved in student ");
@@ -100,9 +100,9 @@ public class ReserveFormController implements Initializable {
     }
 
     //----------------Save order---------------//
-    public boolean saveReserve(String resId, String stId, String roomId, LocalDate orderDate, double rentFee) {
+    public boolean saveReserve(String resId, String stId, String roomId, LocalDate orderDate, String rentFee) {
         try {
-            return purchaseRoomBO.PurchaseRoom(new ReserveDTO(resId, stId, roomId, orderDate, rentFee));
+            return purchaseRoomBO.PurchaseRoom(new ReservationDTO(resId, orderDate, stId, roomId, rentFee));
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
@@ -138,9 +138,9 @@ public class ReserveFormController implements Initializable {
 
         tblReserve.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("res_id"));
         tblReserve.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("student_id"));
-        tblReserve.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("room_id"));
+        tblReserve.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("room_type_id"));
         tblReserve.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("date"));
-        tblReserve.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("key_money"));
+        tblReserve.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("status"));
 
         loadAllReserve();
 
@@ -189,10 +189,10 @@ public class ReserveFormController implements Initializable {
 
                     RoomDTO room = purchaseRoomBO.searchRoom(newRoomId + "");
                     txtRoomType.setText(room.getType());
-                    txtQty.setText(room.getQty());
-                    txtMonthlyRent.setText(String.valueOf(room.getMonthly_rent()));
+                    txtQty.setText(String.valueOf(room.getQty()));
+                    txtMonthlyRent.setText(room.getKey_money());
 
-                    Optional<ReserveTM> optionalReserve = tblReserve.getItems().stream().filter(detail -> detail.getRoom_id().equals(newRoomId)).findFirst();
+                    Optional<ReservationTM> optionalReserve = tblReserve.getItems().stream().filter(detail -> detail.getRoom_type_id().equals(newRoomId)).findFirst();
                     //     txtQty.setText((optionalReserve.isPresent() ? room.getQty() - optionalReserve.get().getQty()) : room.getQty()) + "");
 
 
@@ -214,9 +214,9 @@ public class ReserveFormController implements Initializable {
         tblReserve.getItems().clear();
         /*Get all Reserve*/
         try {
-            ArrayList<ReserveDTO> allStudent = reserveBO.getAllReserve();
-            for (ReserveDTO reserveDTO : allStudent) {
-                tblReserve.getItems().add(new ReserveTM(reserveDTO.getRes_id(), reserveDTO.getStudent_id(), reserveDTO.getRoom_id(), reserveDTO.getDate(), reserveDTO.getKey_money()));
+            ArrayList<ReservationDTO> allStudent = reserveBO.getAllReserve();
+            for (ReservationDTO reserveDTO : allStudent) {
+                tblReserve.getItems().add(new ReservationTM(reserveDTO.getRes_id(), reserveDTO.getDate(), reserveDTO.getStudent_id(), reserveDTO.getRoom_type_id(), reserveDTO.getStatus()));
             }
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

@@ -68,7 +68,7 @@ public class FindRemainKeyMoneyFromController implements Initializable {
                 ArrayList<CustomDTO> arrayList = customBo.getDetailsInKRemainKeyMoneySearch(txtSearch.getText());
                 if (arrayList != null) {
                     for (CustomDTO custom : arrayList) {
-                        tblRemain.getItems().add(new CustomTM(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_id(), custom.getMonthly_rent(), custom.getDate(), custom.getKey_money(), custom.getArrest_money()));
+                        tblRemain.getItems().add(new CustomTM(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_type_id(), custom.getDate(), custom.getKey_money(), custom.getStatus(), custom.getArrest_money()));
                     }
                 }
             } else {
@@ -90,22 +90,21 @@ public class FindRemainKeyMoneyFromController implements Initializable {
         try {
             ArrayList<CustomDTO> allDetails = customBo.getDetailsInKRemainKeyMoney();
             for (CustomDTO custom : allDetails) {
-                tblRemain.getItems().add(new CustomTM(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_id(), custom.getMonthly_rent(), custom.getDate(), custom.getKey_money(), custom.getArrest_money()));
+                tblRemain.getItems().add(new CustomTM(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_type_id(), custom.getDate(), custom.getKey_money(), custom.getStatus(), custom.getArrest_money()));
             }
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tblRemain.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("res_id"));
         tblRemain.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("student_id"));
-        tblRemain.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("room_id"));
+        tblRemain.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("room_type_id"));
         tblRemain.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("date"));
-        tblRemain.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("monthly_rent"));
-        tblRemain.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("key_money"));
+        tblRemain.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("key_money"));
+        tblRemain.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("status"));
         tblRemain.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("arrest_money"));
 
         loadAllDetails();

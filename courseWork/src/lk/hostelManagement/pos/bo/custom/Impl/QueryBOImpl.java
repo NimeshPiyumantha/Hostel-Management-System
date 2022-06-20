@@ -21,7 +21,7 @@ public class QueryBOImpl implements QueryBO {
         ArrayList<Custom> all = queryDAO.getDetailsInKRemainKeyMoney();
         ArrayList<CustomDTO> allDetails = new ArrayList<>();
         for (Custom custom : all) {
-            allDetails.add(new CustomDTO(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_id(), custom.getMonthly_rent(), custom.getDate(), custom.getKey_money(), custom.getArrest_money()));
+            allDetails.add(new CustomDTO(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_type_id(), custom.getDate(),custom.getKey_money(),  custom.getStatus(), custom.getArrest_money()));
         }
         return allDetails;
     }
@@ -31,7 +31,7 @@ public class QueryBOImpl implements QueryBO {
         ArrayList<Custom> all = queryDAO.getDetailsInKRemainKeyMoneySearch(id);
         ArrayList<CustomDTO> allDetails = new ArrayList<>();
         for (Custom custom : all) {
-            allDetails.add(new CustomDTO(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_id(), custom.getMonthly_rent(), custom.getDate(), custom.getKey_money(), custom.getArrest_money()));
+            allDetails.add(new CustomDTO(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_type_id(),  custom.getDate(),custom.getKey_money(), custom.getStatus(), custom.getArrest_money()));
         }
         return allDetails;
     }

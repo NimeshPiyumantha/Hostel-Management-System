@@ -1,7 +1,7 @@
 package lk.hostelManagement.pos.bo.custom;
 
 import lk.hostelManagement.pos.bo.SuperBO;
-import lk.hostelManagement.pos.dto.ReserveDTO;
+import lk.hostelManagement.pos.dto.ReservationDTO;
 import lk.hostelManagement.pos.dto.RoomDTO;
 import lk.hostelManagement.pos.dto.StudentDTO;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @since : 0.1.0
  **/
 public interface PurchaseRoomBO extends SuperBO {
-    boolean PurchaseRoom(ReserveDTO dto) throws SQLException, ClassNotFoundException;
+    boolean PurchaseRoom(ReservationDTO dto) throws SQLException, ClassNotFoundException;
 
     StudentDTO searchStudent(String id) throws SQLException, ClassNotFoundException;
 

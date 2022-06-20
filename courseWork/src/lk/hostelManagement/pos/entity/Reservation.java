@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 /**
@@ -13,10 +17,14 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Reserve {
+@Entity
+public class Reservation {
+    @Id
     private String res_id;
-    private String student_id;
-    private String room_id;
     private LocalDate date;
-    private double key_money;
+    private String student_id;
+    private String room_type_id;
+    private String status;
+
+
 }

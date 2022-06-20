@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author : Nimesh Piyumantha
  * @since : 0.1.0
@@ -11,9 +15,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Room {
     private String room_id;
     private String type;
-    private double monthly_rent;
-    private String qty;
+    private String key_money;
+    private int qty;
+
 }

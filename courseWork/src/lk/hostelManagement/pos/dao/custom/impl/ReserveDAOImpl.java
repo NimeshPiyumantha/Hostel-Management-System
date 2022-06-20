@@ -1,7 +1,7 @@
 package lk.hostelManagement.pos.dao.custom.impl;
 
 import lk.hostelManagement.pos.dao.custom.ReserveDAO;
-import lk.hostelManagement.pos.entity.Reserve;
+import lk.hostelManagement.pos.entity.Reservation;
 import lk.hostelManagement.pos.util.CrudUtil;
 
 import java.sql.ResultSet;
@@ -15,49 +15,47 @@ import java.util.ArrayList;
  **/
 public class ReserveDAOImpl implements ReserveDAO {
     @Override
-    public ArrayList<Reserve> getAll() throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Reserve");
-        ArrayList<Reserve> allReserves = new ArrayList<>();
+    public ArrayList<Reservation> getAll() throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Reservation");
+        ArrayList<Reservation> allReserves = new ArrayList<>();
         while (rst.next()) {
-            allReserves.add(new Reserve(rst.getString(1), rst.getString(2), rst.getString(3), LocalDate.parse(rst.getString(4)), rst.getDouble(5)));
+            allReserves.add(new Reservation(rst.getString(1),LocalDate.parse(rst.getString(2)), rst.getString(3), rst.getString(4),  rst.getString(5)));
         }
         return allReserves;
     }
 
     @Override
-    public boolean save(Reserve reserve) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate("INSERT INTO Reserve (res_id,student_id,room_id,date,key_money) VALUES (?,?,?,?,?)", reserve.getRes_id(), reserve.getStudent_id(), reserve.getRoom_id(), reserve.getDate(), reserve.getKey_money());
-
+    public boolean save(Reservation reserve) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate("INSERT INTO Reservation (res_id,date,student_id,room_type_id,status) VALUES (?,?,?,?,?)",reserve.getRes_id(),reserve.getDate(),reserve.getStudent_id(),reserve.getRoom_type_id(),reserve.getStatus());
     }
 
     @Override
-    public boolean update(Reserve reserve) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate("UPDATE Reserve SET  student_id=?,room_id=?,date=?,key_money=? WHERE res_id=?", reserve.getStudent_id(), reserve.getRoom_id(), reserve.getDate(), reserve.getKey_money(), reserve.getRes_id());
-
+    public boolean update(Reservation reserve) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate("UPDATE Reservation SET  date=?,room_type_id=?,status=? WHERE res_id=?", reserve.getDate(),reserve.getRoom_type_id(),reserve.getStatus(),reserve.getRes_id());
     }
 
     @Override
     public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeUpdate("DELETE FROM Reserve WHERE res_id=?", id);
+        return CrudUtil.executeUpdate("DELETE FROM Reservation WHERE res_id=?", id);
     }
 
     @Override
-    public Reserve search(String id) throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Reserve WHERE res_id=?", id);
+    public Reservation search(String id) throws SQLException, ClassNotFoundException {
+        ResultSet rst = CrudUtil.executeQuery("SELECT * FROM Reservation WHERE res_id=?", id);
         if (rst.next()) {
-            return new Reserve(rst.getString(1), rst.getString(2), rst.getString(3), LocalDate.parse(rst.getString(4)), rst.getDouble(5));
+            return new Reservation(rst.getString(1),LocalDate.parse(rst.getString(2)),  rst.getString(3), rst.getString(4), rst.getString(5));
         }
         return null;
     }
 
     @Override
     public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return CrudUtil.executeQuery("SELECT res_id FROM Reserve WHERE res_id=?", id).next();
+        return CrudUtil.executeQuery("SELECT res_id FROM Reservation WHERE res_id=?", id).next();
     }
 
     @Override
     public String generateNewId() throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.executeQuery("SELECT res_id FROM Reserve ORDER BY res_id DESC LIMIT 1;");
+        ResultSet rst = CrudUtil.executeQuery("SELECT res_id FROM Reservation ORDER BY res_id DESC LIMIT 1;");
         return rst.next() ? String.format("REG-%03d", (Integer.parseInt(rst.getString("res_id").replace("REG-", "")) + 1)) : "REG-001";
     }
 }

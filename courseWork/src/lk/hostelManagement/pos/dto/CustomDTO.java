@@ -1,5 +1,7 @@
 package lk.hostelManagement.pos.dto;
 
+import lk.hostelManagement.pos.entity.Room;
+import lk.hostelManagement.pos.entity.Student;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +19,8 @@ public class CustomDTO {
 
     private String room_id;
     private String type;
-    private double monthly_rent;
-    private String qty;
+    private String key_money;
+    private int qty;
 
     private String student_id;
     private String name;
@@ -29,19 +31,18 @@ public class CustomDTO {
 
     private String res_id;
     private LocalDate date;
-    private double key_money;
+    private String room_type_id;
+    private String status;
 
     private double arrest_money;
 
-    public CustomDTO(String res_id, String student_id, String room_id, double monthly_rent, LocalDate date, double key_money, double arrest_money) {
-        this.room_id = room_id;
-        this.monthly_rent = monthly_rent;
+    public CustomDTO(String res_id, String student_id, String room_type_id, LocalDate date, String key_money, String status, double arrest_money) {
+        this.key_money = key_money;
         this.student_id = student_id;
         this.res_id = res_id;
         this.date = date;
-        this.key_money = key_money;
+        this.room_type_id = room_type_id;
+        this.status = status;
         this.arrest_money = arrest_money;
-
-
     }
 }
