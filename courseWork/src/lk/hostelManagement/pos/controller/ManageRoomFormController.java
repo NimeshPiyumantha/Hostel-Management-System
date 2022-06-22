@@ -49,23 +49,23 @@ public class ManageRoomFormController implements Initializable {
         int qty = Integer.parseInt(txtQty.getText());
         String key_money = txtMRent.getText();
 
-       /* if (!id.matches("^[ROO-]{3}$")) {
+        if (!id.matches("^RM-[0-9]{3,4}$")) {
             NotificationController.Warring("Room ID", "Invalid Room ID.Check STU-000 type in your entered value.");
             txtRoomId.requestFocus();
             return;
-        } else if (!type.matches("^[A-z ]{3,20}$")) {
+        } else if (!type.matches("^([A-z]{1,9}|[A-z]{1,9}[ /|-]?[A-z]{1,9}[ /|-]?[A-z]{1,9})$")) {
             NotificationController.Warring("Room Type", "Invalid Room Type.");
             txtRoomType.requestFocus();
             return;
-        } else if (!txtMRent.getText().matches("^[A-z0-9/ ]{4,30}$")) {
+        } else if (!txtMRent.getText().matches("^([A-Z a-z0-9]{4,8})$")) {
             NotificationController.Warring("Room Rent", "Invalid Room Rent.");
             txtMRent.requestFocus();
             return;
-        } else if (!qty.matches("^[A-z ]{3,20}$")) {
+        } else if (!txtQty.getText().matches("^[1-9][0-9]*$")) {
             NotificationController.Warring("Room Qty", "Invalid Room Qty");
             txtQty.requestFocus();
             return;
-        }*/
+        }
         if (btnSave.getText().equalsIgnoreCase("save")) {
             /*Save Rooms*/
             try {

@@ -52,28 +52,28 @@ public class ManageStudentFormController implements Initializable {
         String gender = txtGender.getText();
 
 
-        if (!id.matches("^[STU-]{3}$")) {
-            NotificationController.Warring("Room ID", "Invalid Room ID.Check STU-000 type in your entered value.");
+        if (!id.matches("^(ST-[0-9]{3,4})$")) {
+            NotificationController.Warring("Student Id", "Invalid Student Id.Check STU-000 type in your entered value.");
             txtId.requestFocus();
             return;
-        } else if (!name.matches("^[A-z ]{3,20}$")) {
-            NotificationController.Warring("Room Type", "Invalid Room Type.");
+        } else if (!name.matches("^([A-Z a-z]{5,40})$")) {
+            NotificationController.Warring("Student Name", "Student Name.");
             txtName.requestFocus();
             return;
-        } else if (!cNO.matches("^[A-z0-9/ ]{4,30}$")) {
-            NotificationController.Warring("Room Rent", "Invalid Room Rent.");
+        } else if (!cNO.matches("^(07(0|1|2|4|5|6|7|8)[0-9]{7})$")) {
+            NotificationController.Warring("Contact Number", "Invalid Student Contact Number.");
             txtContactNo.requestFocus();
             return;
-        } else if (!address.matches("^[A-z ]{3,20}$")) {
-            NotificationController.Warring("Room Qty", "Invalid Room Qty");
+        } else if (!address.matches("^([A-Za-z]{4,10})$")) {
+            NotificationController.Warring("Address", "Invalid Student Address.");
             txtAddress.requestFocus();
             return;
-        }else if (!dob.matches("^[A-z0-9/ ]{4,30}$")) {
-            NotificationController.Warring("Room Rent", "Invalid Room Rent.");
+        }else if (!dob.matches("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$")) {
+            NotificationController.Warring("Date of Birth", "Invalid Student Date of Birth.");
             txtDOB.requestFocus();
             return;
-        } else if (!gender.matches("^[A-z ]{3,20}$")) {
-            NotificationController.Warring("Room Qty", "Invalid Room Qty");
+        } else if (!gender.matches("^([A-Z a-z]{4,20})$")) {
+            NotificationController.Warring("Gender", "Invalid Student Gender.");
             txtGender.requestFocus();
             return;
         }
