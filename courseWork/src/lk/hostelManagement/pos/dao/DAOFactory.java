@@ -1,9 +1,6 @@
 package lk.hostelManagement.pos.dao;
 
-import lk.hostelManagement.pos.dao.custom.impl.QueryDAOImpl;
-import lk.hostelManagement.pos.dao.custom.impl.ReserveDAOImpl;
-import lk.hostelManagement.pos.dao.custom.impl.RoomDAOImpl;
-import lk.hostelManagement.pos.dao.custom.impl.StudentDAOImpl;
+import lk.hostelManagement.pos.dao.custom.impl.*;
 
 /**
  * @author : Nimesh Piyumantha
@@ -29,6 +26,8 @@ public class DAOFactory {
                 return new ReserveDAOImpl();
             case Custom:
                 return new QueryDAOImpl();
+            case USER:
+                return new UserDAOImpl();
             default:
                 return null;
         }
@@ -36,6 +35,6 @@ public class DAOFactory {
 
     //public final static integer values
     public enum DAOTypes {
-        STUDENT, ROOM, RESERVE,Custom
+        STUDENT, ROOM, RESERVE,Custom,USER
     }
 }

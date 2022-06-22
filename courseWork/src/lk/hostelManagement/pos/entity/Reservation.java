@@ -21,9 +21,12 @@ import java.time.LocalDate;
 public class Reservation {
     @Id
     private String res_id;
+
     private LocalDate date;
-    private String student_id;
-    private String room_type_id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Student student_id;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Room room_type_id;
     private String status;
 
 

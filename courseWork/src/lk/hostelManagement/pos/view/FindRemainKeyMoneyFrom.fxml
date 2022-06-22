@@ -51,12 +51,12 @@
         </AnchorPane>
         <AnchorPane fx:id="SubAnchorPane" layoutY="49.0" prefHeight="601.0" prefWidth="1120.0" style="-fx-background-color: white;" stylesheets="@assets/styles/style.css">
             <children>
-                <ImageView fitHeight="600.0" fitWidth="1105.0" layoutX="7.0" layoutY="1.0" pickOnBounds="true">
+                <ImageView fitHeight="600.0" fitWidth="1120.0" layoutX="-1.0" layoutY="1.0" pickOnBounds="true">
                     <image>
                         <Image url="@assets/images/main.jpg" />
                     </image>
                 </ImageView>
-                <Rectangle arcHeight="5.0" arcWidth="5.0" height="79.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="470.0">
+                <Rectangle arcHeight="5.0" arcWidth="5.0" height="79.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1120.0">
                     <fill>
                         <LinearGradient endX="0.04807692307692308" endY="0.7115384615384616">
                             <stops>

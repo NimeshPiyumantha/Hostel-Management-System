@@ -107,6 +107,11 @@ public class FindRemainKeyMoneyFromController implements Initializable {
         tblRemain.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("status"));
         tblRemain.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("arrest_money"));
 
-        loadAllDetails();
+        try{
+        loadAllDetails();}
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
     }
 }

@@ -36,7 +36,7 @@
                         <Image url="@assets/images/minimize.png" />
                     </image>
                 </ImageView>
-                <Text fill="#dd2727" layoutX="198.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hostel Management System" wrappingWidth="338.0537109375">
+                <Text fill="#dd2727" layoutX="173.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hostel Management System" wrappingWidth="338.0537109375">
                     <font>
                         <Font name="Bodoni MT Black" size="24.0" />
                     </font>

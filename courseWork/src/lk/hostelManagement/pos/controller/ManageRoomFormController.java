@@ -98,7 +98,7 @@ public class ManageRoomFormController implements Initializable {
             }
 
             RoomTM selectedRoom = tblRoom.getSelectionModel().getSelectedItem();
-            selectedRoom.setRoom_id(id);
+            selectedRoom.setRoom_type_id(id);
             selectedRoom.setType(type);
             selectedRoom.setKey_money(key_money);
             selectedRoom.setQty(qty);
@@ -126,7 +126,7 @@ public class ManageRoomFormController implements Initializable {
 
     public void btnDelete_OnAction(ActionEvent actionEvent) {
         /*Delete Rooms*/
-        String code = tblRoom.getSelectionModel().getSelectedItem().getRoom_id();
+        String code = tblRoom.getSelectionModel().getSelectedItem().getRoom_type_id();
         try {
             if (!exitRooms(code)) {
                 NotificationController.WarringError("Delete Rooms Warning", code, "There is no such Rooms associated with the ");
@@ -165,7 +165,7 @@ public class ManageRoomFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        tblRoom.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("room_id"));
+        tblRoom.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("room_type_id"));
         tblRoom.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("type"));
         tblRoom.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("key_money"));
         tblRoom.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("qty"));
@@ -180,7 +180,7 @@ public class ManageRoomFormController implements Initializable {
 
             if (newValue != null) {
                 //------------------------Text Filed Load----------------------//
-                txtRoomId.setText(newValue.getRoom_id());
+                txtRoomId.setText(newValue.getRoom_type_id());
                 txtRoomType.setText(newValue.getType());
                 txtMRent.setText(newValue.getKey_money() + "");
                 txtQty.setText(newValue.getQty() + "");
@@ -202,7 +202,7 @@ public class ManageRoomFormController implements Initializable {
         try {
             ArrayList<RoomDTO> allRoom = roomBO.getAllRooms();
             for (RoomDTO roomDTO : allRoom) {
-                tblRoom.getItems().add(new RoomTM(roomDTO.getRoom_id(), roomDTO.getType(), roomDTO.getKey_money(), roomDTO.getQty()));
+                tblRoom.getItems().add(new RoomTM(roomDTO.getRoom_type_id(), roomDTO.getType(), roomDTO.getKey_money(), roomDTO.getQty()));
             }
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();

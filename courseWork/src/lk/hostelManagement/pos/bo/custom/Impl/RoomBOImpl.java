@@ -21,20 +21,20 @@ public class RoomBOImpl implements RoomBO {
         ArrayList<Room> all = roomDAO.getAll();
         ArrayList<RoomDTO> allSRoom = new ArrayList<>();
         for (Room room : all) {
-            allSRoom.add(new RoomDTO(room.getRoom_id(), room.getType(), room.getKey_money(), room.getQty()));
+            allSRoom.add(new RoomDTO(room.getRoom_type_id(), room.getType(), room.getKey_money(), room.getQty()));
         }
         return allSRoom;
     }
 
     @Override
     public boolean saveRooms(RoomDTO dto) throws SQLException, ClassNotFoundException {
-        return roomDAO.save(new Room(dto.getRoom_id(), dto.getType(), dto.getKey_money(), dto.getQty()));
+        return roomDAO.save(new Room(dto.getRoom_type_id(), dto.getType(), dto.getKey_money(), dto.getQty()));
 
     }
 
     @Override
     public boolean updateRooms(RoomDTO dto) throws SQLException, ClassNotFoundException {
-        return roomDAO.update(new Room(dto.getRoom_id(), dto.getType(), dto.getKey_money(), dto.getQty()));
+        return roomDAO.update(new Room(dto.getRoom_type_id(), dto.getType(), dto.getKey_money(), dto.getQty()));
 
     }
 

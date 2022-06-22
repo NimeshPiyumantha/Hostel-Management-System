@@ -52,7 +52,7 @@ public class ManageStudentFormController implements Initializable {
         String gender = txtGender.getText();
 
 
-/*        if (!id.matches("^[STU-]{3}$")) {
+        if (!id.matches("^[STU-]{3}$")) {
             NotificationController.Warring("Room ID", "Invalid Room ID.Check STU-000 type in your entered value.");
             txtId.requestFocus();
             return;
@@ -76,7 +76,7 @@ public class ManageStudentFormController implements Initializable {
             NotificationController.Warring("Room Qty", "Invalid Room Qty");
             txtGender.requestFocus();
             return;
-        }*/
+        }
 
         if (btnSave.getText().equalsIgnoreCase("save")) {
             /*Save Student*/

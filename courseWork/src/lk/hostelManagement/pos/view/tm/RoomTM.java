@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RoomTM {
-    private String room_id;
+    private String room_type_id;
     private String type;
     private String key_money;
     private int qty;

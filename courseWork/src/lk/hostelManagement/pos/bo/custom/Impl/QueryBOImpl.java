@@ -4,7 +4,7 @@ import lk.hostelManagement.pos.bo.custom.QueryBO;
 import lk.hostelManagement.pos.dao.DAOFactory;
 import lk.hostelManagement.pos.dao.custom.QueryDAO;
 import lk.hostelManagement.pos.dto.CustomDTO;
-import lk.hostelManagement.pos.entity.Custom;
+import lk.hostelManagement.pos.entity.CustomEntity;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,20 +18,20 @@ public class QueryBOImpl implements QueryBO {
 
     @Override
     public ArrayList<CustomDTO> getDetailsInKRemainKeyMoney() throws SQLException, ClassNotFoundException {
-        ArrayList<Custom> all = queryDAO.getDetailsInKRemainKeyMoney();
+        ArrayList<CustomEntity> all = queryDAO.getDetailsInKRemainKeyMoney();
         ArrayList<CustomDTO> allDetails = new ArrayList<>();
-        for (Custom custom : all) {
-            allDetails.add(new CustomDTO(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_type_id(), custom.getDate(),custom.getKey_money(),  custom.getStatus(), custom.getArrest_money()));
+        for (CustomEntity custom : all) {
+            allDetails.add(new CustomDTO(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_type_id(), custom.getDate(), custom.getKey_money(), custom.getStatus(), custom.getArrest_money()));
         }
         return allDetails;
     }
 
     @Override
     public ArrayList<CustomDTO> getDetailsInKRemainKeyMoneySearch(String id) throws SQLException, ClassNotFoundException {
-        ArrayList<Custom> all = queryDAO.getDetailsInKRemainKeyMoneySearch(id);
+        ArrayList<CustomEntity> all = queryDAO.getDetailsInKRemainKeyMoneySearch(id);
         ArrayList<CustomDTO> allDetails = new ArrayList<>();
-        for (Custom custom : all) {
-            allDetails.add(new CustomDTO(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_type_id(),  custom.getDate(),custom.getKey_money(), custom.getStatus(), custom.getArrest_money()));
+        for (CustomEntity custom : all) {
+            allDetails.add(new CustomDTO(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_type_id(), custom.getDate(), custom.getKey_money(), custom.getStatus(), custom.getArrest_money()));
         }
         return allDetails;
     }

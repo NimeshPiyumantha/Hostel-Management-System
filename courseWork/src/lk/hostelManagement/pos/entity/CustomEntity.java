@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Custom {
+public class CustomEntity {
 
-    private String room_id;
+    private String room_type_id;
     private String type;
     private String key_money;
     private int qty;
@@ -29,12 +29,11 @@ public class Custom {
 
     private String res_id;
     private LocalDate date;
-    private String room_type_id;
     private String status;
 
     private double arrest_money;
 
-    public Custom( String res_id,String student_id, String room_type_id,LocalDate date,String key_money, String status, double arrest_money) {
+    public CustomEntity(String res_id, String student_id, String room_type_id, LocalDate date, String key_money, String status, double arrest_money) {
         this.key_money = key_money;
         this.student_id = student_id;
         this.res_id = res_id;

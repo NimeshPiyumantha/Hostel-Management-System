@@ -28,12 +28,14 @@ public class BOFactory {
                 return new PurchaseRoomBOImpl();
             case Custom:
                 return new QueryBOImpl();
+            case USER:
+                return new UserBOImpl();
             default:
                 return null;
         }
     }
 
     public enum BOTypes {
-        STUDENT, ROOM, RESERVE,PurchaseRoom,Custom
+        STUDENT, ROOM, RESERVE,PurchaseRoom,Custom,USER
     }
 }

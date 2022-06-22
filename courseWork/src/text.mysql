@@ -56,5 +56,7 @@ VALUES ('RM-1324', 'Non-AC', 3100, '35'),
        ('RM-0093', 'AC/Food', 16000, '10');
 
 use HostelManagement;
-SELECT Reservation.res_id, Reservation.student_id, Reservation.room_type_id, Room.key_money,  Reservation.date, Reservation.status, (room.key_money - Reservation.status) FROM Room INNER JOIN Reservation ON Room.room_id = Reservation.room_type_id order by res_id;
+SELECT Reservation.res_id, Reservation.student_id_student_id, Reservation.room_type_id_room_id, Room.key_money,  Reservation.date, Reservation.status, (room.key_money - Reservation.status) FROM Room INNER JOIN Reservation ON Room.room_id = Reservation.room_type_id_room_id order by res_id;
 
+SELECT Reservation.res_id, Reservation.student_id_student_id, Reservation.room_type_id_room_id, Room.key_money,  Reservation.date, Reservation.status, (room.key_money - Reservation.status) FROM Room INNER JOIN Reservation ON Room.room_id = Reservation.room_type_id_room_id where Reservation.student_id_student_id  LIKE '%" + s + "%' or pName LIKE '%" + s + "%' "
+SELECT * FROM Reservation;

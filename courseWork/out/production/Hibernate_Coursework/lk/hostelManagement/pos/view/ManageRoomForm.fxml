@@ -38,7 +38,7 @@
                         <Font name="Berlin Sans FB Bold" size="21.0" />
                     </font>
                 </Label>
-            <Text fill="#dd2727" layoutX="192.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hostel Management System" wrappingWidth="336.9999861717224">
+            <Text fill="#dd2727" layoutX="173.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hostel Management System" wrappingWidth="336.9999861717224">
                <font>
                   <Font name="Bodoni MT Black" size="24.0" />
                </font>
@@ -50,7 +50,7 @@
             <Image url="@assets/images/main.jpg" />
          </image>
       </ImageView>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" height="90.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="386.0">
+        <Rectangle arcHeight="5.0" arcWidth="5.0" height="90.0" layoutY="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1120.0">
             <fill>
                 <LinearGradient endX="0.04807692307692308" endY="0.7115384615384616">
                     <stops>

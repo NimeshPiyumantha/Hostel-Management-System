@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CustomTM {
 
-    private String room_id;
+    private String room_type_id;
     private String type;
     private String key_money;
     private int qty;
@@ -29,7 +29,6 @@ public class CustomTM {
 
     private String res_id;
     private LocalDate date;
-    private String room_type_id;
     private String status;
 
     private double arrest_money;

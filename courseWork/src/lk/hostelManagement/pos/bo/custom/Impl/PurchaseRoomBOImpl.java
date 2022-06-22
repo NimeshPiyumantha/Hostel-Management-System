@@ -5,15 +5,16 @@ import lk.hostelManagement.pos.dao.DAOFactory;
 import lk.hostelManagement.pos.dao.custom.ReserveDAO;
 import lk.hostelManagement.pos.dao.custom.RoomDAO;
 import lk.hostelManagement.pos.dao.custom.StudentDAO;
-import lk.hostelManagement.pos.db.DBConnection;
 import lk.hostelManagement.pos.dto.ReservationDTO;
 import lk.hostelManagement.pos.dto.RoomDTO;
 import lk.hostelManagement.pos.dto.StudentDTO;
 import lk.hostelManagement.pos.entity.Reservation;
 import lk.hostelManagement.pos.entity.Room;
 import lk.hostelManagement.pos.entity.Student;
+import lk.hostelManagement.pos.util.FactoryConfiguration;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -29,43 +30,45 @@ public class PurchaseRoomBOImpl implements PurchaseRoomBO {
 
     @Override
     public boolean PurchaseRoom(ReservationDTO dto) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getDbConnection().getConnection();
-        connection.setAutoCommit(false);
+/**
+ Connection connection = DBConnection.getDbConnection().getConnection();
+ connection.setAutoCommit(false);
+ boolean save = reserveDAO.save(new Reservation(dto.getRes_id(), dto.getDate(), dto.getStudent_id(), dto.getRoom_type_id(), dto.getStatus()));
 
-        boolean save = reserveDAO.save(new Reservation(dto.getRes_id(), dto.getDate(), dto.getStudent_id(), dto.getRoom_type_id(), dto.getStatus()));
+ if (!save) {
+ connection.rollback();
+ connection.setAutoCommit(true);
+ return false;
+ }
 
-        if (!save) {
-            connection.rollback();
-            connection.setAutoCommit(true);
-            return false;
-        }
-       /* //Search & Update Item
-        int x=1;
-        RoomDTO room = searchRoom(dto.getRoom_id());
-        room.setQty(room.getQty()-);
+ //        //Search & Update Item
+ //        int x=1;
+ //        RoomDTO room = searchRoom(dto.getRoom_id());
+ //        room.setQty(room.getQty()-);
+ //
+ //        //update item
+ //        boolean update = roomDAO.update(new Room(room.getRoom_id(),room.getType(),room.getMonthly_rent(),room.getQty()));
+ //
+ //        if (!update) {
+ //            connection.rollback();
+ //            connection.setAutoCommit(true);
+ //            return false;
+ //        }
+ connection.commit();
+ connection.setAutoCommit(true);
+ return true;
+ */
 
-        //update item
-        boolean update = roomDAO.update(new Room(room.getRoom_id(),room.getType(),room.getMonthly_rent(),room.getQty()));
-
-        if (!update) {
-            connection.rollback();
-            connection.setAutoCommit(true);
-            return false;
-        }*/
-        connection.commit();
-        connection.setAutoCommit(true);
-        return true;
-
-       /* Session session = FactoryConfiguration.getInstance().getSession();
+        Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         Student student = session.get(Student.class, dto.getStudent_id());
-        Room room = session.get(Room.class, dto.getRoom_id());
+        Room room = session.get(Room.class, dto.getRoom_type_id());
 
-        Reserve reserve = new Reserve(dto.getRes_id(), student, room, dto.getDate(), dto.getKey_money());
+        Reservation reserve = new Reservation(dto.getRes_id(), dto.getDate(), student, room, dto.getStatus());
         session.save(reserve);
         transaction.commit();
         session.close();
-        return true;*/
+        return true;
     }
 
     @Override
@@ -77,7 +80,7 @@ public class PurchaseRoomBOImpl implements PurchaseRoomBO {
     @Override
     public RoomDTO searchRoom(String id) throws SQLException, ClassNotFoundException {
         Room ent = roomDAO.search(id);
-        return new RoomDTO(ent.getRoom_id(), ent.getType(), ent.getKey_money(), ent.getQty());
+        return new RoomDTO(ent.getRoom_type_id(), ent.getType(), ent.getKey_money(), ent.getQty());
     }
 
     @Override
@@ -110,7 +113,7 @@ public class PurchaseRoomBOImpl implements PurchaseRoomBO {
         ArrayList<Room> all = roomDAO.getAll();
         ArrayList<RoomDTO> allRoom = new ArrayList<>();
         for (Room room : all) {
-            allRoom.add(new RoomDTO(room.getRoom_id(), room.getType(), room.getKey_money(), room.getQty()));
+            allRoom.add(new RoomDTO(room.getRoom_type_id(), room.getType(), room.getKey_money(), room.getQty()));
         }
         return allRoom;
     }

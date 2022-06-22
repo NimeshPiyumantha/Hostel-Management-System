@@ -1,7 +1,5 @@
 package lk.hostelManagement.pos.dto;
 
-import lk.hostelManagement.pos.entity.Room;
-import lk.hostelManagement.pos.entity.Student;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CustomDTO {
 
-    private String room_id;
+    private String room_type_id;
     private String type;
     private String key_money;
     private int qty;
@@ -31,7 +29,6 @@ public class CustomDTO {
 
     private String res_id;
     private LocalDate date;
-    private String room_type_id;
     private String status;
 
     private double arrest_money;

@@ -21,6 +21,4 @@ public class ReservationDTO {
     private String student_id;
     private String room_type_id;
     private String status;
-
-
 }

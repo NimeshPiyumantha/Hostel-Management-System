@@ -21,7 +21,6 @@ import javafx.util.Duration;
 import lk.hostelManagement.pos.bo.BOFactory;
 import lk.hostelManagement.pos.bo.custom.PurchaseRoomBO;
 import lk.hostelManagement.pos.bo.custom.ReserveBO;
-import lk.hostelManagement.pos.db.DBConnection;
 import lk.hostelManagement.pos.dto.ReservationDTO;
 import lk.hostelManagement.pos.dto.RoomDTO;
 import lk.hostelManagement.pos.dto.StudentDTO;
@@ -31,7 +30,6 @@ import lk.hostelManagement.pos.view.tm.ReservationTM;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -92,6 +90,7 @@ public class ReserveFormController implements Initializable {
         cmbRoomId.getSelectionModel().clearSelection();
         cmbStudentId.getSelectionModel().clearSelection();
         txtRoomType.clear();
+        txtKeyMoney.clear();
         txtQty.clear();
         txtMonthlyRent.clear();
         txtStudentName.clear();
@@ -142,7 +141,12 @@ public class ReserveFormController implements Initializable {
         tblReserve.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("date"));
         tblReserve.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        loadAllReserve();
+        try {
+            loadAllReserve();
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+
 
         RegID = generateNewOrderId();
         llbResId.setText(RegID);
@@ -157,20 +161,15 @@ public class ReserveFormController implements Initializable {
 
             if (newValue != null) {
                 try {
-                    Connection connection = DBConnection.getDbConnection().getConnection();
-                    try {
-                        if (!exitStudent(newValue + "")) {
-                            NotificationController.WarringError("Search Student Warning", newValue, "There is no such student associated with the ");
-                        }
-                        /*Search student*/
-                        StudentDTO studentDTO = purchaseRoomBO.searchStudent(newValue + "");
-                        txtStudentName.setText(studentDTO.getName());
-
-                    } catch (SQLException e) {
-                        NotificationController.WarringError("Search Student Warning", newValue, "Failed to find the Student ");
+                    if (!exitStudent(newValue + "")) {
+                        NotificationController.WarringError("Search Student Warning", newValue, "There is no such student associated with the ");
                     }
-                } catch (ClassNotFoundException | SQLException e) {
-                    e.printStackTrace();
+                    /*Search student*/
+                    StudentDTO studentDTO = purchaseRoomBO.searchStudent(newValue + "");
+                    txtStudentName.setText(studentDTO.getName());
+
+                } catch (SQLException | ClassNotFoundException e) {
+                    NotificationController.WarringError("Search Student Warning", newValue, "Failed to find the Student ");
                 }
             } else {
                 txtStudentName.clear();
@@ -215,8 +214,8 @@ public class ReserveFormController implements Initializable {
         /*Get all Reserve*/
         try {
             ArrayList<ReservationDTO> allStudent = reserveBO.getAllReserve();
-            for (ReservationDTO reserveDTO : allStudent) {
-                tblReserve.getItems().add(new ReservationTM(reserveDTO.getRes_id(), reserveDTO.getDate(), reserveDTO.getStudent_id(), reserveDTO.getRoom_type_id(), reserveDTO.getStatus()));
+            for (ReservationDTO reservationDTO : allStudent) {
+                tblReserve.getItems().add(new ReservationTM(reservationDTO.getRes_id(), reservationDTO.getDate(), reservationDTO.getStudent_id(), reservationDTO.getRoom_type_id(), reservationDTO.getStatus()));
             }
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -241,7 +240,7 @@ public class ReserveFormController implements Initializable {
         try {
             ArrayList<RoomDTO> all = purchaseRoomBO.getAllRooms();
             for (RoomDTO roomDTO : all) {
-                cmbRoomId.getItems().add(roomDTO.getRoom_id());
+                cmbRoomId.getItems().add(roomDTO.getRoom_type_id());
             }
 
         } catch (SQLException e) {

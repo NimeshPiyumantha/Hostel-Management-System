@@ -2,6 +2,7 @@ package lk.hostelManagement.pos.bo.custom;
 
 import lk.hostelManagement.pos.bo.SuperBO;
 import lk.hostelManagement.pos.dto.CustomDTO;
+import lk.hostelManagement.pos.dto.ReservationDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,4 +15,5 @@ public interface QueryBO extends SuperBO {
     ArrayList<CustomDTO> getDetailsInKRemainKeyMoney() throws SQLException, ClassNotFoundException;
 
     ArrayList<CustomDTO> getDetailsInKRemainKeyMoneySearch(String id) throws SQLException, ClassNotFoundException;
+
 }
