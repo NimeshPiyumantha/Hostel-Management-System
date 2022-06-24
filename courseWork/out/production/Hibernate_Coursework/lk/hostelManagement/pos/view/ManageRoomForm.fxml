@@ -90,7 +90,7 @@
                 <Font name="System Bold" size="15.0" />
             </font>
         </JFXTextField>
-        <TableView fx:id="tblRoom" fixedCellSize="0.0" layoutX="76.0" layoutY="244.0" opacity="0.93" prefHeight="382.0" prefWidth="852.0">
+        <TableView fx:id="tblRoom" fixedCellSize="0.0" layoutX="76.0" layoutY="244.0" opacity="0.93" prefHeight="382.0" prefWidth="852.0" style="-fx-border-width: 2; -fx-border-color: #007bff; -fx-border-radius: 20;">
             <columns>
                 <TableColumn prefWidth="97.0" text="Room ID" />
                 <TableColumn prefWidth="166.0" text="Room Type" />

@@ -1,6 +1,8 @@
 package lk.hostelManagement.pos.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -35,12 +38,13 @@ public class ManageStudentFormController implements Initializable {
     public JFXTextField txtName;
     public JFXTextField txtContactNo;
     public JFXTextField txtAddress;
-    public JFXTextField txtDOB;
-    public JFXTextField txtGender;
+    //    public JFXTextField txtDOB;
     public JFXButton btnSave;
     public TableView<StudentTM> tblStudent;
     public JFXButton btnDelete;
     public JFXButton btnAddNew;
+    public JFXComboBox<String> cmbGender;
+    public JFXDatePicker datePickerDOB;
 
 
     public void btnSave_OnAction(ActionEvent actionEvent) throws ParseException {
@@ -48,8 +52,8 @@ public class ManageStudentFormController implements Initializable {
         String name = txtName.getText();
         String cNO = txtContactNo.getText();
         String address = txtAddress.getText();
-        String dob = txtDOB.getText();
-        String gender = txtGender.getText();
+        LocalDate dob = datePickerDOB.getValue();
+        String gender = cmbGender.getValue();
 
 
         if (!id.matches("^(ST-[0-9]{3,4})$")) {
@@ -68,13 +72,9 @@ public class ManageStudentFormController implements Initializable {
             NotificationController.Warring("Address", "Invalid Student Address.");
             txtAddress.requestFocus();
             return;
-        }else if (!dob.matches("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$")) {
-            NotificationController.Warring("Date of Birth", "Invalid Student Date of Birth.");
-            txtDOB.requestFocus();
-            return;
         } else if (!gender.matches("^([A-Z a-z]{4,20})$")) {
             NotificationController.Warring("Gender", "Invalid Student Gender.");
-            txtGender.requestFocus();
+            cmbGender.requestFocus();
             return;
         }
 
@@ -145,15 +145,15 @@ public class ManageStudentFormController implements Initializable {
         txtName.setDisable(false);
         txtContactNo.setDisable(false);
         txtAddress.setDisable(false);
-        txtDOB.setDisable(false);
-        txtGender.setDisable(false);
+        datePickerDOB.setDisable(false);
+        cmbGender.setDisable(false);
 
         txtId.clear();
         txtName.clear();
         txtContactNo.clear();
         txtAddress.clear();
-        txtDOB.clear();
-        txtGender.clear();
+        datePickerDOB.getEditor().clear();
+        cmbGender.getSelectionModel().clearSelection();
         txtId.requestFocus();
         btnSave.setDisable(false);
         btnSave.setText("Save");
@@ -166,6 +166,9 @@ public class ManageStudentFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        cmbGender.getItems().addAll("Male", "Female", "Other");
+
         tblStudent.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("student_id"));
         tblStudent.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
         tblStudent.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -186,19 +189,19 @@ public class ManageStudentFormController implements Initializable {
                 txtName.setText(newValue.getName());
                 txtContactNo.setText(newValue.getContact_no());
                 txtAddress.setText(newValue.getAddress());
-                txtDOB.setText(newValue.getDob() + "");
-                txtGender.setText(newValue.getGender());
+                datePickerDOB.setValue(newValue.getDob());
+                cmbGender.setValue(newValue.getGender() + "");
 
                 txtId.setDisable(false);
                 txtName.setDisable(false);
                 txtContactNo.setDisable(false);
                 txtAddress.setDisable(false);
-                txtDOB.setDisable(false);
-                txtGender.setDisable(false);
+                datePickerDOB.setDisable(false);
+                cmbGender.setDisable(false);
             }
         });
 
-        txtGender.setOnAction(event -> btnSave.fire());
+        txtAddress.setOnAction(event -> btnSave.fire());
         loadAllStudent();
     }
 
@@ -215,33 +218,20 @@ public class ManageStudentFormController implements Initializable {
         }
     }
 
-    private void loadAllRoom() {
-        tblStudent.getItems().clear();
-        /*Get all Student*/
-        try {
-            ArrayList<StudentDTO> allRoom = studentBO.getAllStudent();
-            for (StudentDTO studentDTO : allRoom) {
-                tblStudent.getItems().add(new StudentTM(studentDTO.getStudent_id(), studentDTO.getName(), studentDTO.getAddress(), studentDTO.getContact_no(), studentDTO.getDob(), studentDTO.getGender()));
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
-    }
-
     private void initUI() {
         txtId.clear();
         txtName.clear();
         txtContactNo.clear();
         txtAddress.clear();
-        txtDOB.clear();
-        txtGender.clear();
+        datePickerDOB.getEditor().clear();
+        cmbGender.getSelectionModel().clearSelection();
 
         txtId.setDisable(true);
         txtName.setDisable(true);
         txtContactNo.setDisable(true);
         txtAddress.setDisable(true);
-        txtDOB.setDisable(true);
-        txtGender.setDisable(true);
+        datePickerDOB.setDisable(true);
+        cmbGender.setDisable(true);
 
         btnSave.setDisable(true);
         btnDelete.setDisable(true);

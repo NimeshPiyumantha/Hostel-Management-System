@@ -14,7 +14,9 @@ import lk.hostelManagement.pos.entity.Student;
 import lk.hostelManagement.pos.util.FactoryConfiguration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -64,8 +66,15 @@ public class PurchaseRoomBOImpl implements PurchaseRoomBO {
         Student student = session.get(Student.class, dto.getStudent_id());
         Room room = session.get(Room.class, dto.getRoom_type_id());
 
-        Reservation reserve = new Reservation(dto.getRes_id(), dto.getDate(), student, room, dto.getStatus());
+        Reservation reserve = new Reservation(dto.getRes_id(), dto.getDate(), student, room,dto.getKey_money(),dto.getAdvance(), dto.getStatus());
         session.save(reserve);
+
+//        int qty = 1;
+//
+//        String hql = "UPDATE Room SET  qty=? WHERE Room_type_id = :room";
+//        Query query = session.createQuery(hql);
+//        query.setParameter(qty,room.getQty() - qty);
+
         transaction.commit();
         session.close();
         return true;

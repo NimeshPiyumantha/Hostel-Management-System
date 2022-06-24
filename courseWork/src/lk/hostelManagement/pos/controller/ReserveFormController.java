@@ -10,10 +10,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -62,23 +60,35 @@ public class ReserveFormController implements Initializable {
     public Label lblTime;
     public JFXButton btnStudent;
     public JFXTextField txtKeyMoney;
+    public JFXTextField txtQTY;
+    public JFXTextField txtAddress;
+    public JFXTextField txtDOB;
+    public JFXTextField txtGender;
+    public JFXTextField txtContactNo;
     private String RegID;
 
-
+    //----------------Register Button---------------//
     public void btnReserveOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-
         cmbStudentId.setDisable(false);
         cmbRoomId.setDisable(false);
-        txtRoomType.setDisable(false);
-        txtQty.setDisable(false);
-        txtMonthlyRent.setDisable(false);
-        txtStudentName.setDisable(false);
+        txtRoomType.setEditable(false);
+        txtQty.setEditable(false);
+        txtMonthlyRent.setEditable(false);
+        txtStudentName.setEditable(false);
+        txtQTY.setEditable(false);
+        txtAddress.setEditable(false);
+        txtDOB.setEditable(false);
+        txtGender.setEditable(false);
+        txtContactNo.setEditable(false);
 
-        boolean b = saveReserve(RegID, cmbStudentId.getValue(), cmbRoomId.getValue(), LocalDate.now(), txtKeyMoney.getText());
+
+        Double roomFee = Double.parseDouble(txtMonthlyRent.getText());
+        Double advance = Double.parseDouble(txtKeyMoney.getText());
+        String status = String.valueOf(roomFee - advance);
+
+        boolean b = saveReserve(RegID, cmbStudentId.getValue(), cmbRoomId.getValue(), LocalDate.now(), txtMonthlyRent.getText(), advance, status);
         if (b) {
-
             NotificationController.SuccessfulTableNotification("Room Reserve", "Room Reserved in student ");
-
         } else {
             System.out.println(b);
             NotificationController.UnSuccessfulTableNotification("Room Reserve", "Room Reserved in student ");
@@ -94,14 +104,18 @@ public class ReserveFormController implements Initializable {
         txtQty.clear();
         txtMonthlyRent.clear();
         txtStudentName.clear();
-        loadAllReserve();
+        txtAddress.clear();
+        txtDOB.clear();
+        txtGender.clear();
+        txtContactNo.clear();
 
     }
 
-    //----------------Save order---------------//
-    public boolean saveReserve(String resId, String stId, String roomId, LocalDate orderDate, String rentFee) {
+
+    //----------------Save Register---------------//
+    public boolean saveReserve(String resId, String stId, String roomId, LocalDate orderDate, String keyMoney, double advance, String status) {
         try {
-            return purchaseRoomBO.PurchaseRoom(new ReservationDTO(resId, orderDate, stId, roomId, rentFee));
+            return purchaseRoomBO.PurchaseRoom(new ReservationDTO(resId, orderDate, stId, roomId, keyMoney, advance, status));
         } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
@@ -135,19 +149,6 @@ public class ReserveFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        tblReserve.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("res_id"));
-        tblReserve.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("student_id"));
-        tblReserve.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("room_type_id"));
-        tblReserve.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("date"));
-        tblReserve.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("status"));
-
-        try {
-            loadAllReserve();
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
-
-
         RegID = generateNewOrderId();
         llbResId.setText(RegID);
         lblDate.setText(LocalDate.now().toString());
@@ -156,6 +157,7 @@ public class ReserveFormController implements Initializable {
         loadAllRoomIds();
         loadAllStudentIds();
 
+        //---------Student to Combo-------------//
         cmbStudentId.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             enableOrDisableRegisterButton();
 
@@ -167,6 +169,10 @@ public class ReserveFormController implements Initializable {
                     /*Search student*/
                     StudentDTO studentDTO = purchaseRoomBO.searchStudent(newValue + "");
                     txtStudentName.setText(studentDTO.getName());
+                    txtAddress.setText(studentDTO.getAddress());
+                    txtDOB.setText(studentDTO.getDob() + "");
+                    txtGender.setText(studentDTO.getGender());
+                    txtContactNo.setText(studentDTO.getContact_no());
 
                 } catch (SQLException | ClassNotFoundException e) {
                     NotificationController.WarringError("Search Student Warning", newValue, "Failed to find the Student ");
@@ -176,6 +182,7 @@ public class ReserveFormController implements Initializable {
             }
         });
 
+        //---------Room to Combo-------------//
         cmbRoomId.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newRoomId) -> {
             btnReserve.setDisable(newRoomId == null);
 
@@ -185,15 +192,10 @@ public class ReserveFormController implements Initializable {
                     if (!exitRooms(newRoomId + "")) {
 
                     }
-
                     RoomDTO room = purchaseRoomBO.searchRoom(newRoomId + "");
                     txtRoomType.setText(room.getType());
                     txtQty.setText(String.valueOf(room.getQty()));
                     txtMonthlyRent.setText(room.getKey_money());
-
-                    Optional<ReservationTM> optionalReserve = tblReserve.getItems().stream().filter(detail -> detail.getRoom_type_id().equals(newRoomId)).findFirst();
-                    //     txtQty.setText((optionalReserve.isPresent() ? room.getQty() - optionalReserve.get().getQty()) : room.getQty()) + "");
-
 
                 } catch (SQLException | ClassNotFoundException throwables) {
                     throwables.printStackTrace();
@@ -206,22 +208,10 @@ public class ReserveFormController implements Initializable {
                 txtMonthlyRent.clear();
             }
         });
-
     }
 
-    private void loadAllReserve() {
-        tblReserve.getItems().clear();
-        /*Get all Reserve*/
-        try {
-            ArrayList<ReservationDTO> allStudent = reserveBO.getAllReserve();
-            for (ReservationDTO reservationDTO : allStudent) {
-                tblReserve.getItems().add(new ReservationTM(reservationDTO.getRes_id(), reservationDTO.getDate(), reservationDTO.getStudent_id(), reservationDTO.getRoom_type_id(), reservationDTO.getStatus()));
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
-    }
 
+    //---------Load Student to Combo-------------//
     private void loadAllStudentIds() {
         try {
             ArrayList<StudentDTO> all = purchaseRoomBO.getAllStudents();
@@ -236,13 +226,13 @@ public class ReserveFormController implements Initializable {
         }
     }
 
+    //---------Load Room to Combo-------------//
     private void loadAllRoomIds() {
         try {
             ArrayList<RoomDTO> all = purchaseRoomBO.getAllRooms();
             for (RoomDTO roomDTO : all) {
                 cmbRoomId.getItems().add(roomDTO.getRoom_type_id());
             }
-
         } catch (SQLException e) {
             NotificationController.Warring("Rooms Load", "Failed to load customer ids.");
         } catch (ClassNotFoundException e) {
@@ -250,20 +240,23 @@ public class ReserveFormController implements Initializable {
         }
     }
 
-
+    //----------Exit Student -------------//
     private boolean exitStudent(String id) throws SQLException, ClassNotFoundException {
         return purchaseRoomBO.checkStudentIsAvailable(id);
     }
 
+    //---------- Exit Rooms -------------//
     private boolean exitRooms(String id) throws SQLException, ClassNotFoundException {
         return purchaseRoomBO.checkRoomIsAvailable(id);
     }
 
+    //----------Enable Disable RegisterButton-------------//
     private void enableOrDisableRegisterButton() {
         btnReserve.setDisable(cmbRoomId.getSelectionModel().getSelectedItem() == null);
 
     }
 
+    //---------- Load Time Date -------------//
     private void loadDateAndTime() {
         //Set Date
         lblDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));

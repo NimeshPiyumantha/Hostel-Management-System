@@ -12,7 +12,7 @@
 }
 
 .combo{
-    -fx-font-size: 18;
+    -fx-font-size: 15;
     -fx-font-weight: bold;
     -fx-font-fill: rgb(54, 49, 49);
 }
@@ -56,6 +56,6 @@
 }
 
 .border {
-    -fx-border-color: #2f4f4f;
-    -fx-border-width: 1.5;
+    -fx-border-color: #007bff;
+    -fx-border-width: 2;
 }

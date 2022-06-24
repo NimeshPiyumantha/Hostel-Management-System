@@ -3,11 +3,8 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -50,11 +47,7 @@
         </AnchorPane>
       <AnchorPane fx:id="SubAnchorPane" layoutY="49.0" prefHeight="601.0" prefWidth="1120.0" style="-fx-background-color: white;" stylesheets="@assets/styles/style.css">
          <children>
-              <ImageView fitHeight="605.0" fitWidth="1120.0" opacity="0.61" pickOnBounds="true">
-                  <image>
-                      <Image url="@assets/images/main.jpg" />
-                  </image>
-              </ImageView>
+              <ImageView fitHeight="605.0" fitWidth="1120.0" opacity="0.28" pickOnBounds="true" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" height="73.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1120.0">
                <fill>
                   <LinearGradient endX="0.04807692307692308" endY="0.7115384615384616">
@@ -75,81 +68,90 @@
                   <Font name="Garamond Bold" size="35.0" />
                </font>
             </Label>
-            <JFXComboBox fx:id="cmbRoomId" labelFloat="true" layoutX="41.0" layoutY="199.0" prefHeight="39.0" prefWidth="380.0" promptText="Room ID" styleClass="combo" />
-            <JFXTextField fx:id="txtRoomType" labelFloat="true" layoutX="515.0" layoutY="199.0" prefHeight="39.0" prefWidth="524.0" promptText="Room Type">
+            <JFXComboBox fx:id="cmbStudentId" labelFloat="true" layoutX="50.0" layoutY="187.0" prefHeight="39.0" prefWidth="283.0" promptText="Student ID" styleClass="combo" />
+            <JFXTextField fx:id="txtAddress" labelFloat="true" layoutX="50.0" layoutY="256.0" prefHeight="39.0" prefWidth="283.0" promptText="Address">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtQty" labelFloat="true" layoutX="338.0" layoutY="262.0" prefHeight="39.0" prefWidth="150.0" promptText="QTY">
+            <JFXTextField fx:id="txtDOB" labelFloat="true" layoutX="391.0" layoutY="256.0" prefHeight="39.0" prefWidth="283.0" promptText="Date of Birth">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="txtMonthlyRent" labelFloat="true" layoutX="41.0" layoutY="262.0" prefHeight="39.0" prefWidth="267.0" promptText="Key Money ">
+            <JFXTextField fx:id="txtGender" labelFloat="true" layoutX="743.0" layoutY="256.0" prefHeight="39.0" prefWidth="283.0" promptText="Gender">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </JFXTextField>
-            <Label fx:id="lblDate" alignment="CENTER_RIGHT" layoutX="917.0" layoutY="27.0" prefHeight="27.0" prefWidth="129.0" text="2022-05-16">
+            <JFXTextField fx:id="txtStudentName" labelFloat="true" layoutX="391.0" layoutY="189.0" prefHeight="39.0" prefWidth="283.0" promptText="Student Name ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtContactNo" labelFloat="true" layoutX="743.0" layoutY="189.0" prefHeight="39.0" prefWidth="283.0" promptText="Contact ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXComboBox fx:id="cmbRoomId" labelFloat="true" layoutX="41.0" layoutY="368.0" prefHeight="39.0" prefWidth="283.0" promptText="Room ID" styleClass="combo" />
+            <JFXTextField fx:id="txtRoomType" labelFloat="true" layoutX="382.0" layoutY="368.0" prefHeight="39.0" prefWidth="283.0" promptText="Room Type">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtMonthlyRent" labelFloat="true" layoutX="742.0" layoutY="368.0" prefHeight="39.0" prefWidth="283.0" promptText="Key Money ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtQty" labelFloat="true" layoutX="41.0" layoutY="440.0" prefHeight="39.0" prefWidth="283.0" promptText="QTY">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtKeyMoney" labelFloat="true" layoutX="382.0" layoutY="440.0" prefHeight="39.0" prefWidth="342.0" promptText="Advance Fee">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <Label fx:id="lblDate" alignment="CENTER_RIGHT" layoutX="913.0" layoutY="42.0" prefHeight="27.0" prefWidth="129.0" text="2022-05-16">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TableView fx:id="tblReserve" layoutX="41.0" layoutY="320.0" opacity="0.93" prefHeight="260.0" prefWidth="1051.0">
-               <columns>
-                  <TableColumn prefWidth="98.0" text="Reserve ID" />
-                  <TableColumn prefWidth="126.0" text="Student ID" />
-                  <TableColumn prefWidth="100.0" text="Room ID" />
-                  <TableColumn prefWidth="112.0" text="Date" />
-                  <TableColumn prefWidth="134.0" text="Status" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-            <Label fx:id="llbResId" alignment="CENTER_RIGHT" layoutX="52.0" layoutY="80.0" prefHeight="30.0" prefWidth="167.0" text=" RES-001" textFill="#f20c0c">
+            <Label fx:id="llbResId" alignment="CENTER_RIGHT" layoutX="79.0" layoutY="102.0" prefHeight="30.0" prefWidth="167.0" text=" RES-001" textFill="#f20c0c">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <JFXButton id="btnSave" fx:id="btnReserve" layoutX="897.0" layoutY="262.0" onAction="#btnReserveOnAction" prefHeight="39.0" prefWidth="150.0" text="Reserve">
+            <JFXButton id="btnSave" fx:id="btnReserve" layoutX="877.0" layoutY="498.0" onAction="#btnReserveOnAction" prefHeight="62.0" prefWidth="189.0" style="-fx-border-color: #2c3e50; -fx-background-radius: 20; -fx-border-radius: 25; -fx-border-width: 2;" text="Reserve">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="22.0" />
                </font>
             </JFXButton>
-            <JFXComboBox fx:id="cmbStudentId" labelFloat="true" layoutX="41.0" layoutY="129.0" prefHeight="39.0" prefWidth="380.0" promptText="Student ID " styleClass="combo" />
-            <JFXTextField fx:id="txtStudentName" labelFloat="true" layoutX="515.0" layoutY="129.0" prefHeight="39.0" prefWidth="524.0" promptText="Student Name ">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </JFXTextField>
-            <Label fx:id="lblTime" alignment="CENTER_RIGHT" layoutX="768.0" layoutY="26.0" prefHeight="30.0" prefWidth="129.0" text="23:23:44">
+            <Label fx:id="lblTime" alignment="CENTER_RIGHT" layoutX="764.0" layoutY="41.0" prefHeight="30.0" prefWidth="129.0" text="23:23:44">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="41.0" layoutY="80.0" prefHeight="30.0" prefWidth="95.0" text="RES ID :" textFill="#fc0a0a">
+            <Label alignment="CENTER_RIGHT" layoutX="67.0" layoutY="101.0" prefHeight="30.0" prefWidth="95.0" text="RES ID :" textFill="#fc0a0a">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <JFXButton id="btnAddNew" fx:id="btnStudent" layoutX="942.0" layoutY="76.0" onAction="#btnStudentOnAction" prefHeight="39.0" prefWidth="150.0" text="Add Student">
+            <JFXButton id="btnAddNew" fx:id="btnStudent" layoutX="883.0" layoutY="116.0" onAction="#btnStudentOnAction" prefHeight="62.0" prefWidth="177.0" style="-fx-border-radius: 25; -fx-background-radius: 20; -fx-border-color: #2c3e50; -fx-background-color: #8e44ad; -fx-border-width: 2;" text="Add Student">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="22.0" />
                </font>
             </JFXButton>
-            <JFXTextField fx:id="txtKeyMoney" labelFloat="true" layoutX="523.0" layoutY="262.0" prefHeight="39.0" prefWidth="227.0" promptText="Status">
+            <Separator layoutX="98.0" layoutY="147.0" prefHeight="5.0" prefWidth="754.0" />
+            <Separator layoutX="41.0" layoutY="336.0" prefHeight="5.0" prefWidth="1023.0" />
+            <JFXTextField fx:id="txtQTY" labelFloat="true" layoutX="764.0" layoutY="431.0" opacity="0.0" prefHeight="39.0" prefWidth="106.0" promptText="qty" text="1">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </JFXTextField>
-            <Separator layoutX="52.0" layoutY="114.0" prefWidth="200.0" />
-            <CheckBox layoutX="777.0" layoutY="268.0" mnemonicParsing="false" text="Paid">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </CheckBox>
          </children>
       </AnchorPane>
     </children>

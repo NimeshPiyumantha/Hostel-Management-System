@@ -27,6 +27,8 @@ public class Reservation {
     private Student student_id;
     @ManyToOne(cascade = CascadeType.ALL)
     private Room room_type_id;
+    private String key_money;
+    private Double advance;
     private String status;
 
 

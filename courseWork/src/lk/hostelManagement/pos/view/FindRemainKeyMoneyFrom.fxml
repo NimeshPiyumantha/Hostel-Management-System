@@ -76,15 +76,15 @@
                         <Font name="Garamond Bold" size="35.0" />
                     </font>
                 </Label>
-                <TableView fx:id="tblRemain" layoutX="41.0" layoutY="157.0" opacity="0.93" prefHeight="423.0" prefWidth="1051.0">
+                <TableView fx:id="tblRemain" layoutX="41.0" layoutY="157.0" opacity="0.93" prefHeight="423.0" prefWidth="1051.0" style="-fx-border-width: 2; -fx-border-color: #007bff; -fx-border-radius: 20;">
                     <columns>
                         <TableColumn prefWidth="98.0" text="Reserve ID" />
                         <TableColumn prefWidth="126.0" text="Student ID" />
                         <TableColumn prefWidth="100.0" text="Room ID" />
                         <TableColumn prefWidth="112.0" text="Date" />
                         <TableColumn prefWidth="100.0" text="Key Money " />
+                        <TableColumn prefWidth="134.0" text="Advance Key Money" />
                         <TableColumn prefWidth="134.0" text="Status" />
-                        <TableColumn prefWidth="134.0" text="Amount in Arrears" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

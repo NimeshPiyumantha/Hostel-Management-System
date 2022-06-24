@@ -27,13 +27,23 @@ public class ReserveBOImpl implements ReserveBO {
         ArrayList<ReservationDTO> allReserve = new ArrayList<>();
         try {
             for (Reservation r : all) {
-                allReserve.add(new ReservationDTO(r.getRes_id(), r.getDate(), r.getStudent_id().getStudent_id(), r.getRoom_type_id().getRoom_type_id(), r.getStatus()));
+                allReserve.add(new ReservationDTO(r.getRes_id(), r.getDate(), r.getStudent_id().getStudent_id(), r.getRoom_type_id().getRoom_type_id(), r.getKey_money(), r.getAdvance(), r.getStatus()));
             }
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
         return allReserve;
 
+    }
+
+    @Override
+    public ArrayList<ReservationDTO> getAllReserveSearch(String id) throws SQLException, ClassNotFoundException {
+        ArrayList<Reservation> all = reserveDAO.getAllReserve(id);
+        ArrayList<ReservationDTO> reservationSearch = new ArrayList<>();
+        for (Reservation r : all) {
+            reservationSearch.add(new ReservationDTO(r.getRes_id(), r.getDate(), r.getStudent_id().getStudent_id(), r.getRoom_type_id().getRoom_type_id(), r.getKey_money(), r.getAdvance(), r.getStatus()));
+        }
+        return reservationSearch;
     }
 
     @Override
@@ -46,7 +56,7 @@ public class ReserveBOImpl implements ReserveBO {
         Student student = session.get(Student.class, dto.getStudent_id());
         Room room = session.get(Room.class, dto.getRoom_type_id());
 
-        Reservation reserve = new Reservation(dto.getRes_id(), dto.getDate(), student, room, dto.getStatus());
+        Reservation reserve = new Reservation(dto.getRes_id(), dto.getDate(), student, room, dto.getKey_money(), dto.getAdvance(), dto.getStatus());
         session.update(reserve);
         transaction.commit();
         session.close();

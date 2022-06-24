@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +24,13 @@ public class Student {
     private String name;
     private String address;
     private String contact_no;
-    private String dob;
+    private LocalDate dob;
     private String gender;
 
     @OneToMany(mappedBy = "student_id", fetch = FetchType.EAGER)
     private List<Reservation> studentList = new ArrayList<>();
 
-    public Student(String student_id, String name, String address, String contact_no, String dob, String gender) {
+    public Student(String student_id, String name, String address, String contact_no, LocalDate dob, String gender) {
         this.student_id = student_id;
         this.name = name;
         this.address = address;

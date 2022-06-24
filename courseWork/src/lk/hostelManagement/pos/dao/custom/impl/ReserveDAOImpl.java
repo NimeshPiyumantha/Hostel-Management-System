@@ -25,7 +25,7 @@ public class ReserveDAOImpl implements ReserveDAO {
  }
  return allReserves;
  */
-        ArrayList<Reservation> allReserve=null;
+        ArrayList<Reservation> allReserve = null;
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery(" FROM Reservation");
@@ -126,5 +126,17 @@ public class ReserveDAOImpl implements ReserveDAO {
             return String.format("REG-%03d", newStudentId);
         }
         return "REG-001";
+    }
+
+    @Override
+    public ArrayList<Reservation> getAllReserve(String id) throws SQLException, ClassNotFoundException {
+        ArrayList<Reservation> allReserveSearch = new ArrayList<>();
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("SELECT  res_id, date, student_id_student_id, room_type_id_room_type_id,key_money,advance, status FROM Reservation where student_id_student_id =:id");
+        allReserveSearch = (ArrayList<Reservation>) query.list();
+        transaction.commit();
+        session.close();
+        return allReserveSearch;
     }
 }

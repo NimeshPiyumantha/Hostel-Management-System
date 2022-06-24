@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -60,22 +62,12 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="txtDOB" labelFloat="true" layoutX="416.0" layoutY="157.0" prefHeight="31.0" prefWidth="274.0" promptText="Date Of Birth :">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </JFXTextField>
-      <JFXTextField fx:id="txtGender" labelFloat="true" layoutX="783.0" layoutY="157.0" prefHeight="31.0" prefWidth="274.0" promptText="Gender :">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </JFXTextField>
       <JFXButton id="btnUpdate" fx:id="btnSave" layoutX="978.0" layoutY="420.0" onAction="#btnSave_OnAction" prefHeight="39.0" prefWidth="121.0" style="-fx-cursor: hand;" text="Save">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </JFXButton>
-      <TableView fx:id="tblStudent" fixedCellSize="0.0" layoutX="35.0" layoutY="226.0" opacity="0.93" prefHeight="360.0" prefWidth="923.0">
+      <TableView fx:id="tblStudent" fixedCellSize="0.0" layoutX="35.0" layoutY="226.0" opacity="0.93" prefHeight="360.0" prefWidth="923.0" style="-fx-border-color: #007bff; -fx-border-width: 2; -fx-border-radius: 20;">
          <columns>
             <TableColumn prefWidth="97.0" text="Student ID" />
             <TableColumn prefWidth="167.0" text="Student Name" />
@@ -98,5 +90,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </JFXButton>
+      <JFXComboBox fx:id="cmbGender" layoutX="781.0" layoutY="149.0" prefHeight="39.0" prefWidth="274.0" promptText="Gender" styleClass="combo" />
+      <JFXDatePicker fx:id="datePickerDOB" layoutX="414.0" layoutY="157.0" prefHeight="31.0" prefWidth="274.0" promptText="Date Of Birth :" styleClass="combo" />
    </children>
 </AnchorPane>

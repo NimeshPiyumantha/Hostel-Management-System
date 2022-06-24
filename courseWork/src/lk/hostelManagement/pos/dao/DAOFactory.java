@@ -24,8 +24,6 @@ public class DAOFactory {
                 return new RoomDAOImpl();
             case RESERVE:
                 return new ReserveDAOImpl();
-            case Custom:
-                return new QueryDAOImpl();
             case USER:
                 return new UserDAOImpl();
             default:
@@ -35,6 +33,6 @@ public class DAOFactory {
 
     //public final static integer values
     public enum DAOTypes {
-        STUDENT, ROOM, RESERVE,Custom,USER
+        STUDENT, ROOM, RESERVE,USER
     }
 }

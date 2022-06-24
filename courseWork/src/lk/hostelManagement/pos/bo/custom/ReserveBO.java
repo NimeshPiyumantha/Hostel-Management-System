@@ -2,6 +2,7 @@ package lk.hostelManagement.pos.bo.custom;
 
 import lk.hostelManagement.pos.bo.SuperBO;
 import lk.hostelManagement.pos.dto.ReservationDTO;
+import lk.hostelManagement.pos.entity.Reservation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 public interface ReserveBO extends SuperBO {
 
     ArrayList<ReservationDTO> getAllReserve() throws SQLException, ClassNotFoundException;
+
+    ArrayList<ReservationDTO> getAllReserveSearch(String id) throws SQLException, ClassNotFoundException;
 
     boolean updateReserve(ReservationDTO dto) throws SQLException, ClassNotFoundException;
 

@@ -18,6 +18,8 @@ public class ReservationTM  {
     private LocalDate date;
     private String student_id;
     private String room_type_id;
+    private String key_money;
+    private Double advance;
     private String status;
 
 }

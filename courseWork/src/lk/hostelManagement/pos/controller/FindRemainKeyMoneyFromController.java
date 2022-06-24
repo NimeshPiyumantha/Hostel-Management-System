@@ -12,12 +12,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.hostelManagement.pos.bo.BOFactory;
-import lk.hostelManagement.pos.bo.custom.QueryBO;
+import lk.hostelManagement.pos.bo.custom.ReserveBO;
 import lk.hostelManagement.pos.bo.custom.StudentBO;
-import lk.hostelManagement.pos.dto.CustomDTO;
+import lk.hostelManagement.pos.dto.ReservationDTO;
 import lk.hostelManagement.pos.util.NotificationController;
 import lk.hostelManagement.pos.util.UILoader;
-import lk.hostelManagement.pos.view.tm.CustomTM;
+import lk.hostelManagement.pos.view.tm.ReservationTM;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,13 +30,14 @@ import java.util.ResourceBundle;
  * @since : 0.1.0
  **/
 public class FindRemainKeyMoneyFromController implements Initializable {
-    private final QueryBO customBo = (QueryBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.Custom);
+    private final ReserveBO reserveBO = (ReserveBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RESERVE);
     private final StudentBO studentBO = (StudentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STUDENT);
 
 
     public AnchorPane MainAnchorPane;
-    public TableView<CustomTM> tblRemain;
+    public TableView<ReservationTM> tblRemain;
     public JFXTextField txtSearch;
+    public AnchorPane SubAnchorPane;
 
     public void navigateToHome(MouseEvent mouseEvent) throws SQLException, IOException {
         UILoader.NavigateToHome(MainAnchorPane, "AdminDashBoardForm");
@@ -61,14 +62,14 @@ public class FindRemainKeyMoneyFromController implements Initializable {
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         if (txtSearch.getText().trim().isEmpty()) {
             NotificationController.Warring("Empty Search Id", "Please Enter Current ID.");
-            loadAllDetails();
+            loadAllReserve();
         } else {
             if (StudentExit(txtSearch.getText())) {
                 tblRemain.getItems().clear();
-                ArrayList<CustomDTO> arrayList = customBo.getDetailsInKRemainKeyMoneySearch(txtSearch.getText());
+                ArrayList<ReservationDTO> arrayList = reserveBO.getAllReserveSearch(txtSearch.getText());
                 if (arrayList != null) {
-                    for (CustomDTO custom : arrayList) {
-                        tblRemain.getItems().add(new CustomTM(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_type_id(), custom.getDate(), custom.getKey_money(), custom.getStatus(), custom.getArrest_money()));
+                    for (ReservationDTO reservationDTO : arrayList) {
+                        tblRemain.getItems().add(new ReservationTM(reservationDTO.getRes_id(), reservationDTO.getDate(), reservationDTO.getStudent_id(), reservationDTO.getRoom_type_id(), reservationDTO.getKey_money(), reservationDTO.getAdvance(), reservationDTO.getStatus()));
                     }
                 }
             } else {
@@ -83,14 +84,14 @@ public class FindRemainKeyMoneyFromController implements Initializable {
         return studentBO.existStudentID(id);
     }
 
-    private void loadAllDetails() {
+    //---------Load Reserve to Table-------------//
+    private void loadAllReserve() {
         tblRemain.getItems().clear();
-        /*Get all Details*/
-
+        /*Get all Reserve*/
         try {
-            ArrayList<CustomDTO> allDetails = customBo.getDetailsInKRemainKeyMoney();
-            for (CustomDTO custom : allDetails) {
-                tblRemain.getItems().add(new CustomTM(custom.getRes_id(), custom.getStudent_id(), custom.getRoom_type_id(), custom.getDate(), custom.getKey_money(), custom.getStatus(), custom.getArrest_money()));
+            ArrayList<ReservationDTO> allStudent = reserveBO.getAllReserve();
+            for (ReservationDTO reservationDTO : allStudent) {
+                tblRemain.getItems().add(new ReservationTM(reservationDTO.getRes_id(), reservationDTO.getDate(), reservationDTO.getStudent_id(), reservationDTO.getRoom_type_id(), reservationDTO.getKey_money(), reservationDTO.getAdvance(), reservationDTO.getStatus()));
             }
         } catch (SQLException | ClassNotFoundException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -104,14 +105,10 @@ public class FindRemainKeyMoneyFromController implements Initializable {
         tblRemain.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("room_type_id"));
         tblRemain.getColumns().get(3).setCellValueFactory(new PropertyValueFactory<>("date"));
         tblRemain.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("key_money"));
-        tblRemain.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("status"));
-        tblRemain.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("arrest_money"));
+        tblRemain.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("advance"));
+        tblRemain.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        try{
-        loadAllDetails();}
-        catch (NullPointerException e){
-            e.printStackTrace();
-        }
+        loadAllReserve();
 
     }
 }

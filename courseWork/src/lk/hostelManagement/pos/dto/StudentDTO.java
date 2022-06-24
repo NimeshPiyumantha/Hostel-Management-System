@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -18,6 +19,6 @@ public class StudentDTO {
     private String name;
     private String address;
     private String contact_no;
-    private String dob;
+    private LocalDate dob;
     private String gender;
 }

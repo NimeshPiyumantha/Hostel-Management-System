@@ -27,7 +27,9 @@
       <root url="file://$PROJECT_DIR$/lib/required" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/hibernate-core-5.6.0.Final-sources.jar!/" />
+    </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/lib/required" recursive="false" />
   </library>
 </component>
