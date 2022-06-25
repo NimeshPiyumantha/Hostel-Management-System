@@ -16,11 +16,9 @@ import javafx.stage.Stage;
 import lk.hostelManagement.pos.bo.BOFactory;
 import lk.hostelManagement.pos.bo.custom.UserBO;
 import lk.hostelManagement.pos.dto.LoginDTO;
-import lk.hostelManagement.pos.dto.StudentDTO;
 import lk.hostelManagement.pos.util.NotificationController;
 import lk.hostelManagement.pos.util.UILoader;
 import lk.hostelManagement.pos.view.tm.LoginTM;
-import lk.hostelManagement.pos.view.tm.StudentTM;
 
 import java.io.IOException;
 import java.net.URL;
@@ -47,10 +45,12 @@ public class ManageUserFormController implements Initializable {
     public JFXComboBox<String> cmbGender;
     public JFXTextField txtPassword;
 
+    //------Navigate To Home-----//
     public void navigateToHome(MouseEvent mouseEvent) throws SQLException, IOException {
         UILoader.NavigateToHome(MainAnchorePane, "AdminDashBoardForm");
     }
 
+    //------Save-----//
     public void btnSave_OnAction(ActionEvent actionEvent) {
         String id = txtId.getText();
         String name = txtName.getText();
@@ -129,10 +129,12 @@ public class ManageUserFormController implements Initializable {
         btnAddNew.fire();
     }
 
+    //------Exit User-----//
     private boolean exitUser(String id) throws SQLException, ClassNotFoundException {
         return userBO.existUser(id);
     }
 
+    //------Delete-----//
     public void btnDelete_OnAction(ActionEvent actionEvent) {
         /*Delete Student*/
         String code = tblUser.getSelectionModel().getSelectedItem().getUserID();
@@ -171,6 +173,7 @@ public class ManageUserFormController implements Initializable {
         btnDelete.setDisable(true);
     }
 
+    //------Add New User-----//
     public void btnAddNew_OnAction(ActionEvent actionEvent) {
         txtId.setDisable(false);
         txtName.setDisable(false);
@@ -193,7 +196,7 @@ public class ManageUserFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        //------Combo Load-----//
         cmbGender.getItems().addAll("Male", "Female", "Other");
 
         tblUser.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("userID"));
@@ -229,15 +232,16 @@ public class ManageUserFormController implements Initializable {
         });
 
         txtAddress.setOnAction(event -> btnSave.fire());
-        loadAllStudent();
+        laodAllUsers();
     }
 
-    private void loadAllStudent() {
+    //------Load All Users-----//
+    private void laodAllUsers() {
         tblUser.getItems().clear();
         /*Get all Student*/
         try {
-            ArrayList<LoginDTO> allStudent = userBO.getAllUsers();
-            for (LoginDTO loginDTO : allStudent) {
+            ArrayList<LoginDTO> allUsers = userBO.getAllUsers();
+            for (LoginDTO loginDTO : allUsers) {
                 tblUser.getItems().add(new LoginTM(loginDTO.getUserID(), loginDTO.getName(), loginDTO.getAddress(), loginDTO.getContact_no(), loginDTO.getPassword(), loginDTO.getGender()));
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -245,16 +249,19 @@ public class ManageUserFormController implements Initializable {
         }
     }
 
+    //------Minimize-----//
     public void BtnMinimizeOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
 
+    //------Close-----//
     public void BtnCloseOnAction(MouseEvent mouseEvent) {
         Platform.exit();
         System.exit(0);
     }
 
+    //------Restore-----//
     public void BtnRestoreDownOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setFullScreenExitHint("");

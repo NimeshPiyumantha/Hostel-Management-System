@@ -36,6 +36,7 @@ public class AdminDashBoardFormController {
     public Label lblMenu;
     public Button btnManageUser;
 
+    //------Navigate-----//
     public void navigate(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getSource() instanceof ImageView) {
             ImageView icon = (ImageView) mouseEvent.getSource();
@@ -68,6 +69,7 @@ public class AdminDashBoardFormController {
         }
     }
 
+    //------Mouse Enter Animation-----//
     public void playMouseEnterAnimation(MouseEvent mouseEvent) {
         if (mouseEvent.getSource() instanceof ImageView) {
             ImageView icon = (ImageView) mouseEvent.getSource();
@@ -101,6 +103,7 @@ public class AdminDashBoardFormController {
         }
     }
 
+    //------Mouse Exit Animation-----//
     public void playMouseExitAnimation(MouseEvent mouseEvent) {
         if (mouseEvent.getSource() instanceof ImageView) {
             ImageView icon = (ImageView) mouseEvent.getSource();
@@ -115,27 +118,32 @@ public class AdminDashBoardFormController {
         }
     }
 
+    //------Minimize-----//
     public void BtnMinimizeOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
 
+    //------Close-----//
     public void BtnCloseOnAction(MouseEvent mouseEvent) {
         Platform.exit();
         System.exit(0);
     }
 
+    //------Restore-----//
     public void BtnRestoreDownOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setFullScreenExitHint("");
         stage.setResizable(true);
     }
 
+    //------Navigate To Home-----//
     public void navigateToHome(MouseEvent mouseEvent) throws SQLException, IOException {
         UILoader.NavigateToHome(AdminDashboard, "LoginForm");
     }
 
+    //------User Login-----//
     public void userOnAction(ActionEvent actionEvent) throws IOException {
-UILoader.loadUiDashBoard(AdminDashboard,"ManageUserForm");
+        UILoader.loadUiDashBoard(AdminDashboard, "ManageUserForm");
     }
 }

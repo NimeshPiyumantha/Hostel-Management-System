@@ -34,33 +34,34 @@ public class LoginFormController {
     public Label lblHide;
     int attempts = 0;
 
+    //------Minimize-----//
     public void BtnMinimizeOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
 
+    //------Cancel-----//
     public void BtnCloseOnAction(MouseEvent mouseEvent) {
         Platform.exit();
         System.exit(0);
     }
 
+    //------Restore-----//
     public void BtnRestoreDownOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setFullScreenExitHint("");
         stage.setResizable(true);
     }
 
+    //------Cancel-----//
     public void goToCancelPage(ActionEvent actionEvent) {
         txtUserName.setText("");
         txtPassword.setText("");
     }
 
+    //------Login OnAction-----//
     public void btnLoginPage(ActionEvent actionEvent) throws SQLException, IOException, ClassNotFoundException {
 
-        UILoader.LoginOnAction(context, "AdminDashBoardForm");
-        NotificationController.LoginSuccessfulNotification("Admin");
-
-/*
         ArrayList<LoginDTO> loginDTOS = userBO.getAllUsers();
         attempts++;
         loginDTOS.forEach(e -> {
@@ -82,10 +83,9 @@ public class LoginFormController {
                 NotificationController.LoginUnSuccessfulNotification("Account is Temporarily Disabled or You Did not Sign in Correctly.");
             }
         });
-*/
     }
 
-    //------Show Password-----
+    //------Show Password-----//
     public void showPasswordOnMousePressed(MouseEvent mouseEvent) {
         Image img = new Image("/lk/hostelManagement/pos/view/assets/images/show.png");
         ImageView view = new ImageView(img);
@@ -99,7 +99,7 @@ public class LoginFormController {
         txtPassword.requestFocus();
     }
 
-    //------Hide Password-----
+    //------Hide Password-----//
     public void hidePasswordOnMousePressed(MouseEvent mouseEvent) {
         Image img = new Image("/lk/hostelManagement/pos/view/assets/images/hide.png");
         ImageView view = new ImageView(img);

@@ -13,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.hostelManagement.pos.bo.BOFactory;
 import lk.hostelManagement.pos.bo.custom.ReserveBO;
-import lk.hostelManagement.pos.bo.custom.StudentBO;
 import lk.hostelManagement.pos.dto.ReservationDTO;
 import lk.hostelManagement.pos.util.NotificationController;
 import lk.hostelManagement.pos.util.UILoader;
@@ -37,26 +36,31 @@ public class FindRemainKeyMoneyFromController implements Initializable {
     public JFXTextField txtSearch;
     public AnchorPane SubAnchorPane;
 
+    //------Navigate To Home-----//
     public void navigateToHome(MouseEvent mouseEvent) throws SQLException, IOException {
         UILoader.NavigateToHome(MainAnchorPane, "AdminDashBoardForm");
     }
 
+    //------Minimize-----//
     public void BtnMinimizeOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
 
+    //------Close-----//
     public void BtnCloseOnAction(MouseEvent mouseEvent) {
         Platform.exit();
         System.exit(0);
     }
 
+    //------Restore-----//
     public void BtnRestoreDownOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setFullScreenExitHint("");
         stage.setResizable(true);
     }
 
+    //------Search REGISTRATION ID-----//
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 
         if (txtSearch.getText().trim().isEmpty()) {

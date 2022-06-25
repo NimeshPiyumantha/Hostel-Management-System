@@ -10,29 +10,24 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.hostelManagement.pos.bo.BOFactory;
 import lk.hostelManagement.pos.bo.custom.PurchaseRoomBO;
-import lk.hostelManagement.pos.bo.custom.ReserveBO;
 import lk.hostelManagement.pos.dto.ReservationDTO;
 import lk.hostelManagement.pos.dto.RoomDTO;
 import lk.hostelManagement.pos.dto.StudentDTO;
 import lk.hostelManagement.pos.util.NotificationController;
 import lk.hostelManagement.pos.util.UILoader;
-import lk.hostelManagement.pos.view.tm.ReservationTM;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -43,7 +38,6 @@ import java.util.ResourceBundle;
  **/
 public class ReserveFormController implements Initializable {
     private final PurchaseRoomBO purchaseRoomBO = (PurchaseRoomBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PurchaseRoom);
-    private final ReserveBO reserveBO = (ReserveBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RESERVE);
 
     public AnchorPane MainAnchorPane;
     public AnchorPane SubAnchorPane;
@@ -52,7 +46,6 @@ public class ReserveFormController implements Initializable {
     public JFXTextField txtQty;
     public JFXTextField txtMonthlyRent;
     public Label lblDate;
-    public TableView<ReservationTM> tblReserve;
     public Label llbResId;
     public JFXButton btnReserve;
     public JFXComboBox<String> cmbStudentId;
@@ -65,7 +58,6 @@ public class ReserveFormController implements Initializable {
     public JFXTextField txtDOB;
     public JFXTextField txtGender;
     public JFXTextField txtContactNo;
-    public JFXButton btnbill;
     private String RegID;
 
     //----------------Register Button---------------//
@@ -111,19 +103,6 @@ public class ReserveFormController implements Initializable {
 
     }
 
-    private void loadAllReserve() {
-        tblReserve.getItems().clear();
-        /*Get all Reserve*/
-        try {
-            ArrayList<ReservationDTO> allReserve = reserveBO.getAllReserve();
-            for (ReservationDTO reservationDTO : allReserve) {
-                tblReserve.getItems().add(new ReservationTM(reservationDTO.getRes_id(), reservationDTO.getDate(), reservationDTO.getStudent_id(), reservationDTO.getRoom_type_id(), reservationDTO.getKey_money(), reservationDTO.getAdvance(), reservationDTO.getStatus()));
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
-        }
-    }
-
 
     //----------------Save Register---------------//
     public boolean saveReserve(String resId, String stId, String roomId, LocalDate orderDate, String keyMoney, double advance, String status) {
@@ -135,24 +114,29 @@ public class ReserveFormController implements Initializable {
         return false;
     }
 
+    //------Navigate To Home-----//
     public void navigateToHome(MouseEvent mouseEvent) throws SQLException, IOException {
         UILoader.NavigateToHome(MainAnchorPane, "AdminDashBoardForm");
     }
 
+    //------Student Form-----//
     public void btnStudentOnAction(ActionEvent actionEvent) throws IOException {
         UILoader.loadUiDashBoard(SubAnchorPane, "ManageStudentForm");
     }
 
+    //------Minimize-----//
     public void BtnMinimizeOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
 
+    //------Close-----//
     public void BtnCloseOnAction(MouseEvent mouseEvent) {
         Platform.exit();
         System.exit(0);
     }
 
+    //------Restore-----//
     public void BtnRestoreDownOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setFullScreenExitHint("");
@@ -271,14 +255,10 @@ public class ReserveFormController implements Initializable {
 
     //---------- Load Time Date -------------//
     private void loadDateAndTime() {
-        //Set Date
-        lblDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
-        //Set Time
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, event -> {
-            LocalTime currentTime = LocalTime.now();
-            lblTime.setText(currentTime.getHour() + ":" +
-                    currentTime.getMinute() + ":" +
-                    currentTime.getSecond());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("hh.mm.ss aa");
+            String formattedDate = dateFormat.format(new Date());
+            lblTime.setText(formattedDate);
         }),
                 new KeyFrame(Duration.seconds(1))
         );

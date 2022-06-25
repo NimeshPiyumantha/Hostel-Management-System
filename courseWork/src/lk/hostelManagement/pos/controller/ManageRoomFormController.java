@@ -44,6 +44,7 @@ public class ManageRoomFormController implements Initializable {
     public JFXButton btnDelete;
     public JFXTextField txtSearch;
 
+    //------Save-----//
     public void btnSave_OnAction(ActionEvent actionEvent) {
         String id = txtRoomId.getText();
         String type = txtRoomType.getText();
@@ -108,7 +109,7 @@ public class ManageRoomFormController implements Initializable {
         btnAddNew.fire();
     }
 
-
+    //------ADD NEW-----//
     public void btnAddNew_OnAction(ActionEvent actionEvent) {
         txtRoomId.setDisable(false);
         txtRoomType.setDisable(false);
@@ -125,6 +126,7 @@ public class ManageRoomFormController implements Initializable {
 
     }
 
+    //------Delete-----//
     public void btnDelete_OnAction(ActionEvent actionEvent) {
         /*Delete Rooms*/
         String code = tblRoom.getSelectionModel().getSelectedItem().getRoom_type_id();
@@ -144,22 +146,26 @@ public class ManageRoomFormController implements Initializable {
         }
     }
 
+    //------Minimize-----//
     public void BtnMinimizeOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setIconified(true);
     }
 
+    //------Close-----//
     public void BtnCloseOnAction(MouseEvent mouseEvent) {
         Platform.exit();
         System.exit(0);
     }
 
+    //------Restore-----//
     public void BtnRestoreDownOnAction(MouseEvent mouseEvent) {
         Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
         stage.setFullScreenExitHint("");
         stage.setResizable(true);
     }
 
+    //------Navigate To Home-----//
     public void navigateToHome(MouseEvent mouseEvent) throws SQLException, IOException {
         UILoader.NavigateToHome(RoomContext, "AdminDashBoardForm");
     }
@@ -197,6 +203,7 @@ public class ManageRoomFormController implements Initializable {
         loadAllRoom();
     }
 
+    //------Load Room-----//
     private void loadAllRoom() {
         tblRoom.getItems().clear();
         /*Get all Room*/
@@ -225,10 +232,12 @@ public class ManageRoomFormController implements Initializable {
         btnDelete.setDisable(true);
     }
 
+    //------Exit Room-----//
     private boolean exitRooms(String id) throws SQLException, ClassNotFoundException {
         return roomBO.existRoomsID(id);
     }
 
+    //------Search Room ID-----//
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         if (txtSearch.getText().trim().isEmpty()) {
             NotificationController.Warring("Empty Search Id", "Please Enter Current ID.");

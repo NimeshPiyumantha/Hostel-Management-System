@@ -13,11 +13,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.hostelManagement.pos.bo.BOFactory;
 import lk.hostelManagement.pos.bo.custom.StudentBO;
-import lk.hostelManagement.pos.dto.ReservationDTO;
 import lk.hostelManagement.pos.dto.StudentDTO;
 import lk.hostelManagement.pos.util.NotificationController;
 import lk.hostelManagement.pos.util.UILoader;
-import lk.hostelManagement.pos.view.tm.ReservationTM;
 import lk.hostelManagement.pos.view.tm.StudentTM;
 
 import java.io.IOException;
@@ -48,7 +46,7 @@ public class ManageStudentFormController implements Initializable {
     public JFXDatePicker datePickerDOB;
     public JFXTextField txtSearch;
 
-
+    //------Save-----//
     public void btnSave_OnAction(ActionEvent actionEvent) throws ParseException {
         String id = txtId.getText();
         String name = txtName.getText();
@@ -123,6 +121,7 @@ public class ManageStudentFormController implements Initializable {
         btnAddNew.fire();
     }
 
+    //------Delete-----//
     public void btnDelete_OnAction(ActionEvent actionEvent) {
         /*Delete Student*/
         String code = tblStudent.getSelectionModel().getSelectedItem().getStudent_id();
@@ -142,6 +141,7 @@ public class ManageStudentFormController implements Initializable {
         }
     }
 
+    //------ADD NEW-----//
     public void btnAddNew_OnAction(ActionEvent actionEvent) {
         txtId.setDisable(false);
         txtName.setDisable(false);
@@ -162,13 +162,14 @@ public class ManageStudentFormController implements Initializable {
         tblStudent.getSelectionModel().clearSelection();
     }
 
+    //------Navigate To Home-----//
     public void navigateToHome(MouseEvent mouseEvent) throws SQLException, IOException {
         UILoader.NavigateToHome(MainAnchorePane, "ReserveForm");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        //------Combo Box-----//
         cmbGender.getItems().addAll("Male", "Female", "Other");
 
         tblStudent.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("student_id"));
@@ -207,6 +208,7 @@ public class ManageStudentFormController implements Initializable {
         loadAllStudent();
     }
 
+    //------Load Student-----//
     private void loadAllStudent() {
         tblStudent.getItems().clear();
         /*Get all Student*/
@@ -239,10 +241,12 @@ public class ManageStudentFormController implements Initializable {
         btnDelete.setDisable(true);
     }
 
+    //------Exit Student-----//
     private boolean exitStudent(String id) throws SQLException, ClassNotFoundException {
         return studentBO.existStudentID(id);
     }
 
+    //------Search Student ID-----//
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
         if (txtSearch.getText().trim().isEmpty()) {
             NotificationController.Warring("Empty Search Id", "Please Enter Current ID.");
