@@ -1,8 +1,0 @@
-use HostelManagement;
-SELECT Reservation.res_id, Reservation.student_id_student_id, Reservation.room_type_id_room_type_id, Reservation.date, Room.key_money, Reservation.status,(room.key_money - Reservation.status) FROM Room INNER JOIN Reservation ON Room.room_type_id = Reservation.room_type_id_room_type_id order by res_id;
-SELECT * FROM Reservation where student_id_student_id = "ST-001";
-SELECT  res_id, date, student_id_student_id, room_type_id_room_type_id,key_money,advance, status FROM Reservation where student_id_student_id = "ST-001";
-
-UPDATE room SET qty Where room_type_id
-
-DRop table student;
