@@ -93,6 +93,20 @@ public class ReserveDAOImpl implements ReserveDAO {
     }
 
     @Override
+    public boolean existStudent(String id) throws SQLException, ClassNotFoundException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("SELECT student_id_student_id FROM Reservation WHERE student_id_student_id=:id");
+        String id1 = (String) query.setParameter("id", id).uniqueResult();
+        if (id1 != null) {
+            return true;
+        }
+        transaction.commit();
+        session.close();
+        return false;
+    }
+
+    @Override
     public boolean exist(String id) throws SQLException, ClassNotFoundException {
 /**
  return CrudUtil.executeQuery("SELECT res_id FROM Reservation WHERE res_id=?", id).next();
@@ -128,15 +142,4 @@ public class ReserveDAOImpl implements ReserveDAO {
         return "REG-001";
     }
 
-    @Override
-    public ArrayList<Reservation> getAllReserve(String id) throws SQLException, ClassNotFoundException {
-        ArrayList<Reservation> allReserveSearch = new ArrayList<>();
-        Session session = FactoryConfiguration.getInstance().getSession();
-        Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("SELECT  res_id, date, student_id_student_id, room_type_id_room_type_id,key_money,advance, status FROM Reservation where student_id_student_id =:id");
-        allReserveSearch = (ArrayList<Reservation>) query.list();
-        transaction.commit();
-        session.close();
-        return allReserveSearch;
-    }
 }

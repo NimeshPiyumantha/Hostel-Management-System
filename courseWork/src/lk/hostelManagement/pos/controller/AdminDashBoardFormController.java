@@ -3,10 +3,12 @@ package lk.hostelManagement.pos.controller;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
@@ -32,6 +34,7 @@ public class AdminDashBoardFormController {
     public ImageView imgKeyMoney;
     public Label lblDescription;
     public Label lblMenu;
+    public Button btnManageUser;
 
     public void navigate(MouseEvent mouseEvent) throws IOException {
         if (mouseEvent.getSource() instanceof ImageView) {
@@ -130,6 +133,9 @@ public class AdminDashBoardFormController {
 
     public void navigateToHome(MouseEvent mouseEvent) throws SQLException, IOException {
         UILoader.NavigateToHome(AdminDashboard, "LoginForm");
+    }
 
+    public void userOnAction(ActionEvent actionEvent) throws IOException {
+UILoader.loadUiDashBoard(AdminDashboard,"ManageUserForm");
     }
 }

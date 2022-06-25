@@ -12,5 +12,6 @@ import java.util.ArrayList;
  **/
 public interface ReserveDAO extends CrudDAO<Reservation, String> {
     String generateNewId() throws SQLException, ClassNotFoundException;
-    ArrayList<Reservation> getAllReserve(String id) throws SQLException, ClassNotFoundException;
+
+    boolean existStudent(String id) throws SQLException, ClassNotFoundException;
 }

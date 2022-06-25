@@ -3,8 +3,11 @@ package lk.hostelManagement.pos.controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -28,6 +31,7 @@ public class LoginFormController {
     public AnchorPane context;
     public TextField txtUserName;
     public PasswordField txtPassword;
+    public Label lblHide;
     int attempts = 0;
 
     public void BtnMinimizeOnAction(MouseEvent mouseEvent) {
@@ -56,17 +60,18 @@ public class LoginFormController {
         UILoader.LoginOnAction(context, "AdminDashBoardForm");
         NotificationController.LoginSuccessfulNotification("Admin");
 
-      /*  ArrayList<LoginDTO> loginDTOS = userBO.getAllUsers();
+/*
+        ArrayList<LoginDTO> loginDTOS = userBO.getAllUsers();
         attempts++;
         loginDTOS.forEach(e -> {
             if (attempts <= 3) {
                 if (e.getUserID().equals(txtUserName.getText()) && e.getPassword().equals(txtPassword.getText())) {
                     try {
                         UILoader.LoginOnAction(context, "AdminDashBoardForm");
+                        NotificationController.LoginSuccessfulNotification("Admin");
                     } catch (IOException | SQLException ex) {
                         ex.printStackTrace();
                     }
-                    NotificationController.LoginSuccessfulNotification("Admin");
                 } else {
                     //try again
                     NotificationController.LoginUnSuccessfulNotification("Admin");
@@ -78,5 +83,32 @@ public class LoginFormController {
             }
         });
 */
+    }
+
+    //------Show Password-----
+    public void showPasswordOnMousePressed(MouseEvent mouseEvent) {
+        Image img = new Image("/lk/hostelManagement/pos/view/assets/images/show.png");
+        ImageView view = new ImageView(img);
+        view.setFitHeight(20);
+        view.setFitWidth(20);
+        lblHide.setGraphic(view);
+
+        txtPassword.setPromptText(txtPassword.getText());
+        txtPassword.setText("");
+        txtPassword.setDisable(true);
+        txtPassword.requestFocus();
+    }
+
+    //------Hide Password-----
+    public void hidePasswordOnMousePressed(MouseEvent mouseEvent) {
+        Image img = new Image("/lk/hostelManagement/pos/view/assets/images/hide.png");
+        ImageView view = new ImageView(img);
+        view.setFitHeight(20);
+        view.setFitWidth(20);
+        lblHide.setGraphic(view);
+
+        txtPassword.setText(txtPassword.getPromptText());
+        txtPassword.setPromptText("");
+        txtPassword.setDisable(false);
     }
 }

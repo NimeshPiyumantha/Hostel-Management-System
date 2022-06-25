@@ -5,6 +5,7 @@ import lk.hostelManagement.pos.dao.DAOFactory;
 import lk.hostelManagement.pos.dao.custom.RoomDAO;
 import lk.hostelManagement.pos.dto.RoomDTO;
 import lk.hostelManagement.pos.entity.Room;
+import lk.hostelManagement.pos.entity.Student;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,10 +20,20 @@ public class RoomBOImpl implements RoomBO {
     @Override
     public ArrayList<RoomDTO> getAllRooms() throws SQLException, ClassNotFoundException {
         ArrayList<Room> all = roomDAO.getAll();
-        ArrayList<RoomDTO> allSRoom = new ArrayList<>();
+        ArrayList<RoomDTO> allRoom = new ArrayList<>();
         for (Room room : all) {
-            allSRoom.add(new RoomDTO(room.getRoom_type_id(), room.getType(), room.getKey_money(), room.getQty()));
+            allRoom.add(new RoomDTO(room.getRoom_type_id(), room.getType(), room.getKey_money(), room.getQty()));
         }
+        return allRoom;
+    }
+
+    @Override
+    public ArrayList<RoomDTO> searchAllRooms(String id) throws SQLException, ClassNotFoundException {
+        Room all = roomDAO.search(id);
+        ArrayList<RoomDTO> allSRoom = new ArrayList<>();
+
+            allSRoom.add(new RoomDTO(all.getRoom_type_id(), all.getType(), all.getKey_money(), all.getQty()));
+
         return allSRoom;
     }
 

@@ -13,9 +13,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.hostelManagement.pos.bo.BOFactory;
 import lk.hostelManagement.pos.bo.custom.StudentBO;
+import lk.hostelManagement.pos.dto.ReservationDTO;
 import lk.hostelManagement.pos.dto.StudentDTO;
 import lk.hostelManagement.pos.util.NotificationController;
 import lk.hostelManagement.pos.util.UILoader;
+import lk.hostelManagement.pos.view.tm.ReservationTM;
 import lk.hostelManagement.pos.view.tm.StudentTM;
 
 import java.io.IOException;
@@ -38,13 +40,13 @@ public class ManageStudentFormController implements Initializable {
     public JFXTextField txtName;
     public JFXTextField txtContactNo;
     public JFXTextField txtAddress;
-    //    public JFXTextField txtDOB;
     public JFXButton btnSave;
     public TableView<StudentTM> tblStudent;
     public JFXButton btnDelete;
     public JFXButton btnAddNew;
     public JFXComboBox<String> cmbGender;
     public JFXDatePicker datePickerDOB;
+    public JFXTextField txtSearch;
 
 
     public void btnSave_OnAction(ActionEvent actionEvent) throws ParseException {
@@ -102,7 +104,7 @@ public class ManageStudentFormController implements Initializable {
                 }
                 //Rooms update
                 studentBO.updateStudent(new StudentDTO(id, name, address, cNO, dob, gender));
-                NotificationController.SuccessfulTableNotification("Update", "Rooms");
+                NotificationController.SuccessfulTableNotification("Update", "Student");
             } catch (SQLException e) {
                 NotificationController.WarringError("Update Student Warning", id + e.getMessage(), "Failed to update the Student ");
             } catch (ClassNotFoundException e) {
@@ -239,5 +241,25 @@ public class ManageStudentFormController implements Initializable {
 
     private boolean exitStudent(String id) throws SQLException, ClassNotFoundException {
         return studentBO.existStudentID(id);
+    }
+
+    public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        if (txtSearch.getText().trim().isEmpty()) {
+            NotificationController.Warring("Empty Search Id", "Please Enter Current ID.");
+            loadAllStudent();
+        } else {
+            if (exitStudent(txtSearch.getText())) {
+                tblStudent.getItems().clear();
+                ArrayList<StudentDTO> arrayList = studentBO.searchAllStudent(txtSearch.getText());
+                if (arrayList != null) {
+                    for (StudentDTO studentDTO : arrayList) {
+                        tblStudent.getItems().add(new StudentTM(studentDTO.getStudent_id(), studentDTO.getName(), studentDTO.getAddress(), studentDTO.getContact_no(), studentDTO.getDob(), studentDTO.getGender()));
+                    }
+                }
+            } else {
+                tblStudent.getItems().clear();
+                NotificationController.Warring("Empty Data Set", "Please Enter Current ID.");
+            }
+        }
     }
 }

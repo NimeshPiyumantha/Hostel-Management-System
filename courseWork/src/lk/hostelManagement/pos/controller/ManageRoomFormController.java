@@ -42,6 +42,7 @@ public class ManageRoomFormController implements Initializable {
     public JFXButton btnSave;
     public JFXButton btnAddNew;
     public JFXButton btnDelete;
+    public JFXTextField txtSearch;
 
     public void btnSave_OnAction(ActionEvent actionEvent) {
         String id = txtRoomId.getText();
@@ -226,5 +227,25 @@ public class ManageRoomFormController implements Initializable {
 
     private boolean exitRooms(String id) throws SQLException, ClassNotFoundException {
         return roomBO.existRoomsID(id);
+    }
+
+    public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        if (txtSearch.getText().trim().isEmpty()) {
+            NotificationController.Warring("Empty Search Id", "Please Enter Current ID.");
+            loadAllRoom();
+        } else {
+            if (exitRooms(txtSearch.getText())) {
+                tblRoom.getItems().clear();
+                ArrayList<RoomDTO> arrayList = roomBO.searchAllRooms(txtSearch.getText());
+                if (arrayList != null) {
+                    for (RoomDTO roomDTO : arrayList) {
+                        tblRoom.getItems().add(new RoomTM(roomDTO.getRoom_type_id(), roomDTO.getType(), roomDTO.getKey_money(), roomDTO.getQty()));
+                    }
+                }
+            } else {
+                tblRoom.getItems().clear();
+                NotificationController.Warring("Empty Data Set", "Please Enter Current ID.");
+            }
+        }
     }
 }

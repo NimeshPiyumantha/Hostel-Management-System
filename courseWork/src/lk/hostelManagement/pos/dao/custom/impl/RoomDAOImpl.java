@@ -1,6 +1,7 @@
 package lk.hostelManagement.pos.dao.custom.impl;
 
 import lk.hostelManagement.pos.dao.custom.RoomDAO;
+import lk.hostelManagement.pos.entity.Reservation;
 import lk.hostelManagement.pos.entity.Room;
 import lk.hostelManagement.pos.util.FactoryConfiguration;
 import org.hibernate.Session;

@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -36,6 +37,9 @@
          <image>
             <Image url="@assets/images/right-arrow.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <Label layoutX="149.0" layoutY="26.0" text="Manage Student">
          <font>
@@ -90,7 +94,23 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </JFXButton>
-      <JFXComboBox fx:id="cmbGender" layoutX="781.0" layoutY="149.0" prefHeight="39.0" prefWidth="274.0" promptText="Gender" styleClass="combo" />
-      <JFXDatePicker fx:id="datePickerDOB" layoutX="414.0" layoutY="157.0" prefHeight="31.0" prefWidth="274.0" promptText="Date Of Birth :" styleClass="combo" />
+      <JFXComboBox fx:id="cmbGender" layoutX="781.0" layoutY="149.0" prefHeight="39.0" prefWidth="274.0" promptText="Gender" styleClass="combo">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXComboBox>
+      <JFXDatePicker fx:id="datePickerDOB" layoutX="414.0" layoutY="157.0" prefHeight="31.0" prefWidth="274.0" promptText="Date Of Birth :" styleClass="combo">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></JFXDatePicker>
+      <JFXTextField fx:id="txtSearch" labelFloat="true" layoutX="765.0" layoutY="21.0" onAction="#txtSearchOnAction" prefHeight="39.0" prefWidth="273.0" promptText="ST-001">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXTextField>
+      <ImageView fitHeight="40.0" fitWidth="46.0" layoutX="971.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/images/search.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

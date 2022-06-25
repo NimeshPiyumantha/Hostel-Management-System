@@ -31,8 +31,6 @@ import java.util.ResourceBundle;
  **/
 public class FindRemainKeyMoneyFromController implements Initializable {
     private final ReserveBO reserveBO = (ReserveBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RESERVE);
-    private final StudentBO studentBO = (StudentBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STUDENT);
-
 
     public AnchorPane MainAnchorPane;
     public TableView<ReservationTM> tblRemain;
@@ -60,11 +58,12 @@ public class FindRemainKeyMoneyFromController implements Initializable {
     }
 
     public void txtSearchOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+
         if (txtSearch.getText().trim().isEmpty()) {
             NotificationController.Warring("Empty Search Id", "Please Enter Current ID.");
             loadAllReserve();
         } else {
-            if (StudentExit(txtSearch.getText())) {
+            if (RegExit(txtSearch.getText())) {
                 tblRemain.getItems().clear();
                 ArrayList<ReservationDTO> arrayList = reserveBO.getAllReserveSearch(txtSearch.getText());
                 if (arrayList != null) {
@@ -81,7 +80,12 @@ public class FindRemainKeyMoneyFromController implements Initializable {
 
     //------------------------Student Exit----------------------//
     private boolean StudentExit(String id) throws SQLException, ClassNotFoundException {
-        return studentBO.existStudentID(id);
+        return reserveBO.existStudent(id);
+    }
+
+    //------------------------Reservation Exit----------------------//
+    private boolean RegExit(String id) throws SQLException, ClassNotFoundException {
+        return reserveBO.existReserveID(id);
     }
 
     //---------Load Reserve to Table-------------//
@@ -89,8 +93,8 @@ public class FindRemainKeyMoneyFromController implements Initializable {
         tblRemain.getItems().clear();
         /*Get all Reserve*/
         try {
-            ArrayList<ReservationDTO> allStudent = reserveBO.getAllReserve();
-            for (ReservationDTO reservationDTO : allStudent) {
+            ArrayList<ReservationDTO> allReserve = reserveBO.getAllReserve();
+            for (ReservationDTO reservationDTO : allReserve) {
                 tblRemain.getItems().add(new ReservationTM(reservationDTO.getRes_id(), reservationDTO.getDate(), reservationDTO.getStudent_id(), reservationDTO.getRoom_type_id(), reservationDTO.getKey_money(), reservationDTO.getAdvance(), reservationDTO.getStatus()));
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -107,7 +111,6 @@ public class FindRemainKeyMoneyFromController implements Initializable {
         tblRemain.getColumns().get(4).setCellValueFactory(new PropertyValueFactory<>("key_money"));
         tblRemain.getColumns().get(5).setCellValueFactory(new PropertyValueFactory<>("advance"));
         tblRemain.getColumns().get(6).setCellValueFactory(new PropertyValueFactory<>("status"));
-
         loadAllReserve();
 
     }

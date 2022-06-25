@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -34,7 +35,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -65,6 +65,7 @@ public class ReserveFormController implements Initializable {
     public JFXTextField txtDOB;
     public JFXTextField txtGender;
     public JFXTextField txtContactNo;
+    public JFXButton btnbill;
     private String RegID;
 
     //----------------Register Button---------------//
@@ -94,7 +95,6 @@ public class ReserveFormController implements Initializable {
             NotificationController.UnSuccessfulTableNotification("Room Reserve", "Room Reserved in student ");
         }
 
-        //    PrintBill(); //PrintBill
         RegID = generateNewOrderId(); //Generate id
         llbResId.setText(RegID);
         cmbRoomId.getSelectionModel().clearSelection();
@@ -109,6 +109,19 @@ public class ReserveFormController implements Initializable {
         txtGender.clear();
         txtContactNo.clear();
 
+    }
+
+    private void loadAllReserve() {
+        tblReserve.getItems().clear();
+        /*Get all Reserve*/
+        try {
+            ArrayList<ReservationDTO> allReserve = reserveBO.getAllReserve();
+            for (ReservationDTO reservationDTO : allReserve) {
+                tblReserve.getItems().add(new ReservationTM(reservationDTO.getRes_id(), reservationDTO.getDate(), reservationDTO.getStudent_id(), reservationDTO.getRoom_type_id(), reservationDTO.getKey_money(), reservationDTO.getAdvance(), reservationDTO.getStatus()));
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
 

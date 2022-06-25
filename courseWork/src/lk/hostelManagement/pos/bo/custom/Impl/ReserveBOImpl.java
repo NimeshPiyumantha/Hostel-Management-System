@@ -25,12 +25,8 @@ public class ReserveBOImpl implements ReserveBO {
     public ArrayList<ReservationDTO> getAllReserve() throws SQLException, ClassNotFoundException {
         ArrayList<Reservation> all = reserveDAO.getAll();
         ArrayList<ReservationDTO> allReserve = new ArrayList<>();
-        try {
-            for (Reservation r : all) {
-                allReserve.add(new ReservationDTO(r.getRes_id(), r.getDate(), r.getStudent_id().getStudent_id(), r.getRoom_type_id().getRoom_type_id(), r.getKey_money(), r.getAdvance(), r.getStatus()));
-            }
-        } catch (ClassCastException e) {
-            e.printStackTrace();
+        for (Reservation r : all) {
+            allReserve.add(new ReservationDTO(r.getRes_id(), r.getDate(), r.getStudent_id().getStudent_id(), r.getRoom_type_id().getRoom_type_id(), r.getKey_money(), r.getAdvance(), r.getStatus()));
         }
         return allReserve;
 
@@ -38,12 +34,10 @@ public class ReserveBOImpl implements ReserveBO {
 
     @Override
     public ArrayList<ReservationDTO> getAllReserveSearch(String id) throws SQLException, ClassNotFoundException {
-        ArrayList<Reservation> all = reserveDAO.getAllReserve(id);
-        ArrayList<ReservationDTO> reservationSearch = new ArrayList<>();
-        for (Reservation r : all) {
-            reservationSearch.add(new ReservationDTO(r.getRes_id(), r.getDate(), r.getStudent_id().getStudent_id(), r.getRoom_type_id().getRoom_type_id(), r.getKey_money(), r.getAdvance(), r.getStatus()));
-        }
-        return reservationSearch;
+        Reservation all = reserveDAO.search(id);
+        ArrayList<ReservationDTO> allSearchReserve = new ArrayList<>();
+        allSearchReserve.add(new ReservationDTO(all.getRes_id(), all.getDate(), all.getStudent_id().getStudent_id(), all.getRoom_type_id().getRoom_type_id(), all.getKey_money(), all.getAdvance(), all.getStatus()));
+        return allSearchReserve;
     }
 
     @Override
@@ -78,5 +72,10 @@ public class ReserveBOImpl implements ReserveBO {
     @Override
     public boolean existReserveID(String id) throws SQLException, ClassNotFoundException {
         return reserveDAO.exist(id);
+    }
+
+    @Override
+    public boolean existStudent(String id) throws SQLException, ClassNotFoundException {
+        return reserveDAO.existStudent(id);
     }
 }

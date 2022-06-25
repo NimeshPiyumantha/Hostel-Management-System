@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
@@ -14,11 +16,17 @@
             <image>
                 <Image url="@assets/images/key.png" />
             </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
         </ImageView>
         <ImageView fx:id="imgRooms" fitHeight="173.0" fitWidth="165.0" layoutX="496.0" layoutY="247.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@assets/images/living-room.png" />
             </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
         </ImageView>
         <Label fx:id="lblMenu" alignment="CENTER" layoutX="54.0" layoutY="490.0" prefHeight="32.0" prefWidth="1012.0" text="Welcome" textAlignment="CENTER" textFill="#0cf50d">
             <font>
@@ -39,6 +47,9 @@
                <image>
                   <Image url="@assets/images/close.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
             </ImageView>
             <ImageView fitHeight="27.0" fitWidth="32.0" layoutX="1016.0" layoutY="12.0" onMouseClicked="#BtnRestoreDownOnAction" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -49,6 +60,9 @@
                <image>
                   <Image url="@assets/images/minimize.png" />
                </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </ImageView>
             <Text fill="#dd2727" layoutX="173.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hostel Management System" wrappingWidth="348.0537109375">
                <font>
@@ -66,11 +80,25 @@
          <image>
             <Image url="@assets/images/logOut.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </ImageView>
       <ImageView fx:id="imgStudent" fitHeight="173.0" fitWidth="165.0" layoutX="176.0" layoutY="247.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@assets/images/registration.png" />
          </image>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
       </ImageView>
+      <Button fx:id="btnManageUser" layoutX="868.0" layoutY="163.0" mnemonicParsing="false" onAction="#userOnAction" prefHeight="44.0" prefWidth="165.0" style="-fx-background-color: #2f3640;" text="Manage User" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+      </Button>
     </children>
 </AnchorPane>

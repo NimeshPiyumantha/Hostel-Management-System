@@ -22,6 +22,6 @@
         </Label>
         <JFXProgressBar fx:id="progressBar" layoutX="114.0" layoutY="357.0" prefHeight="17.0" prefWidth="632.0" />
         <ProgressIndicator fx:id="progressRange" layoutX="746.0" layoutY="355.0" prefHeight="21.0" prefWidth="59.0" progress="0.0" />
-        <Label layoutX="199.0" layoutY="417.0" text="Copyright © 2022  Hostel Management System. All Right Reserved Design By Nimesh Piyumantha" />
+        <Label layoutX="149.0" layoutY="417.0" text="Copyright © 2022  Hostel Management System. All Right Reserved Design By Nimesh Piyumantha" />
     </children>
 </AnchorPane>

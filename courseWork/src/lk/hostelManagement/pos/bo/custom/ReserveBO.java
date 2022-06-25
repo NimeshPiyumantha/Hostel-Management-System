@@ -2,7 +2,6 @@ package lk.hostelManagement.pos.bo.custom;
 
 import lk.hostelManagement.pos.bo.SuperBO;
 import lk.hostelManagement.pos.dto.ReservationDTO;
-import lk.hostelManagement.pos.entity.Reservation;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,5 +23,7 @@ public interface ReserveBO extends SuperBO {
     String generateNewId() throws SQLException, ClassNotFoundException;
 
     boolean existReserveID(String id) throws SQLException, ClassNotFoundException;
+
+    boolean existStudent(String id) throws SQLException, ClassNotFoundException;
 
 }
