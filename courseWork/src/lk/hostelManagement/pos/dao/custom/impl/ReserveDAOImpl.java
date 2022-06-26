@@ -96,7 +96,7 @@ public class ReserveDAOImpl implements ReserveDAO {
     public boolean existStudent(String id) throws SQLException, ClassNotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("SELECT student_id_student_id FROM Reservation WHERE student_id_student_id=:id");
+        Query query = session.createQuery("SELECT student_id FROM Reservation WHERE student_id=:id");
         String id1 = (String) query.setParameter("id", id).uniqueResult();
         if (id1 != null) {
             return true;

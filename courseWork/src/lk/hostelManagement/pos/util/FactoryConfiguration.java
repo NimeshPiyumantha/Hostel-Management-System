@@ -21,15 +21,12 @@ public class FactoryConfiguration {
 
     private FactoryConfiguration() {
 
-        Configuration config = new Configuration().addAnnotatedClass(Student.class).addAnnotatedClass(Room.class).addAnnotatedClass(Reservation.class).addAnnotatedClass(Login.class);
+        Configuration config = new Configuration()
+                .addAnnotatedClass(Student.class)
+                .addAnnotatedClass(Room.class)
+                .addAnnotatedClass(Reservation.class)
+                .addAnnotatedClass(Login.class);
         sessionFactory = config.buildSessionFactory();
-        Properties properties = new Properties();
-        try {
-            properties.load(ClassLoader.getSystemClassLoader().getResourceAsStream("hibernate.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public static FactoryConfiguration getInstance() {
