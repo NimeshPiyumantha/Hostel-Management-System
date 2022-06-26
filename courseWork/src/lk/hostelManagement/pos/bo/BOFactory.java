@@ -24,8 +24,6 @@ public class BOFactory {
                 return new RoomBOImpl();
             case RESERVE:
                 return new ReserveBOImpl();
-            case PurchaseRoom:
-                return new PurchaseRoomBOImpl();
             case USER:
                 return new UserBOImpl();
             default:
@@ -34,6 +32,6 @@ public class BOFactory {
     }
 
     public enum BOTypes {
-        STUDENT, ROOM, RESERVE,PurchaseRoom,USER
+        STUDENT, ROOM, RESERVE, USER
     }
 }

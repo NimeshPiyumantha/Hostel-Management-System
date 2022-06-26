@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="MainAnchorPane" prefHeight="650.0" prefWidth="1120.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.hostelManagement.pos.controller.ReserveFormController">
+    <children>
+        <AnchorPane prefHeight="49.0" prefWidth="1120.0" style="-fx-background-color: #2f3542;">
+            <children>
+                <ImageView fitHeight="27.0" fitWidth="32.0" layoutX="1068.0" layoutY="12.0" onMouseClicked="#BtnCloseOnAction" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/images/close.png" />
+                    </image>
+               <cursor>
+                  <Cursor fx:constant="CLOSED_HAND" />
+               </cursor>
+                </ImageView>
+                <ImageView fitHeight="27.0" fitWidth="32.0" layoutX="1016.0" layoutY="12.0" onMouseClicked="#BtnRestoreDownOnAction" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/images/maximize.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="27.0" fitWidth="32.0" layoutX="961.0" layoutY="12.0" onMouseClicked="#BtnMinimizeOnAction" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@assets/images/minimize.png" />
+                    </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </ImageView>
+                <Label layoutX="570.0" layoutY="9.0" text="Point Of Sale System" textFill="#3e6ccf">
+                    <font>
+                        <Font name="Berlin Sans FB Bold" size="21.0" />
+                    </font>
+                </Label>
+                <Text fill="#dd2727" layoutX="173.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hostel Management System" wrappingWidth="356.0537109375">
+                    <font>
+                        <Font name="Bodoni MT Black" size="24.0" />
+                    </font>
+                </Text>
+            </children>
+        </AnchorPane>
+      <AnchorPane fx:id="SubAnchorPane" layoutY="49.0" prefHeight="601.0" prefWidth="1120.0" style="-fx-background-color: white;" stylesheets="@assets/styles/style.css">
+         <children>
+              <ImageView fitHeight="605.0" fitWidth="1120.0" opacity="0.15" pickOnBounds="true">
+               <image>
+                  <Image url="@assets/images/reservation.jpg" />
+               </image></ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="73.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1120.0">
+               <fill>
+                  <LinearGradient endX="0.04807692307692308" endY="0.7115384615384616">
+                     <stops>
+                        <Stop color="#1598d6" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <ImageView fitHeight="53.0" fitWidth="56.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#navigateToHome" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/images/home-icon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <Label layoutX="102.0" layoutY="25.0" text="Reserve Form Controller">
+               <font>
+                  <Font name="Garamond Bold" size="35.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="cmbStudentId" labelFloat="true" layoutX="50.0" layoutY="187.0" prefHeight="39.0" prefWidth="283.0" promptText="Student ID" styleClass="combo">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXComboBox>
+            <JFXTextField fx:id="txtAddress" labelFloat="true" layoutX="50.0" layoutY="256.0" prefHeight="39.0" prefWidth="283.0" promptText="Address">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtDOB" labelFloat="true" layoutX="391.0" layoutY="256.0" prefHeight="39.0" prefWidth="283.0" promptText="Date of Birth">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtGender" labelFloat="true" layoutX="743.0" layoutY="256.0" prefHeight="39.0" prefWidth="283.0" promptText="Gender">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtStudentName" labelFloat="true" layoutX="391.0" layoutY="189.0" prefHeight="39.0" prefWidth="283.0" promptText="Student Name ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtContactNo" labelFloat="true" layoutX="743.0" layoutY="189.0" prefHeight="39.0" prefWidth="283.0" promptText="Contact ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXComboBox fx:id="cmbRoomId" labelFloat="true" layoutX="41.0" layoutY="368.0" prefHeight="39.0" prefWidth="283.0" promptText="Room ID" styleClass="combo">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXComboBox>
+            <JFXTextField fx:id="txtRoomType" labelFloat="true" layoutX="382.0" layoutY="368.0" prefHeight="39.0" prefWidth="283.0" promptText="Room Type">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtMonthlyRent" labelFloat="true" layoutX="742.0" layoutY="368.0" prefHeight="39.0" prefWidth="283.0" promptText="Key Money ">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtQty" labelFloat="true" layoutX="41.0" layoutY="440.0" prefHeight="39.0" prefWidth="283.0" promptText="QTY">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="txtKeyMoney" labelFloat="true" layoutX="382.0" layoutY="440.0" prefHeight="39.0" prefWidth="342.0" promptText="Advance Fee">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+            <Label fx:id="lblDate" alignment="CENTER_RIGHT" layoutX="853.0" layoutY="42.0" prefHeight="27.0" prefWidth="189.0" text="2022-05-16">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="llbResId" alignment="CENTER_RIGHT" layoutX="79.0" layoutY="102.0" prefHeight="30.0" prefWidth="167.0" text=" RES-001" textFill="#f20c0c">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <JFXButton id="btnSave" fx:id="btnReserve" layoutX="877.0" layoutY="498.0" onAction="#btnReserveOnAction" prefHeight="62.0" prefWidth="189.0" style="-fx-border-color: #2c3e50; -fx-background-radius: 20; -fx-border-radius: 25; -fx-border-width: 2;" text="Reserve">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <Label fx:id="lblTime" alignment="CENTER_RIGHT" layoutX="678.0" layoutY="41.0" prefHeight="30.0" prefWidth="129.0" text="23:23:44">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutX="67.0" layoutY="101.0" prefHeight="30.0" prefWidth="95.0" text="RES ID :" textFill="#fc0a0a">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <JFXButton id="btnAddNew" fx:id="btnStudent" layoutX="883.0" layoutY="116.0" onAction="#btnStudentOnAction" prefHeight="62.0" prefWidth="177.0" style="-fx-border-radius: 25; -fx-background-radius: 20; -fx-border-color: #2c3e50; -fx-background-color: #8e44ad; -fx-border-width: 2;" text="Add Student">
+               <font>
+                  <Font name="System Bold" size="22.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <Separator layoutX="98.0" layoutY="147.0" prefHeight="5.0" prefWidth="754.0" />
+            <Separator layoutX="41.0" layoutY="336.0" prefHeight="5.0" prefWidth="1023.0" />
+            <JFXTextField fx:id="txtQTY" labelFloat="true" layoutX="764.0" layoutY="431.0" opacity="0.0" prefHeight="39.0" prefWidth="106.0" promptText="qty" text="1">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </AnchorPane>
+    </children>
+</AnchorPane>

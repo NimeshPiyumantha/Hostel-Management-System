@@ -16,7 +16,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.hostelManagement.pos.bo.BOFactory;
-import lk.hostelManagement.pos.bo.custom.PurchaseRoomBO;
+import lk.hostelManagement.pos.bo.custom.ReserveBO;
+import lk.hostelManagement.pos.dao.DAOFactory;
+import lk.hostelManagement.pos.dao.custom.ReserveDAO;
 import lk.hostelManagement.pos.dto.ReservationDTO;
 import lk.hostelManagement.pos.dto.RoomDTO;
 import lk.hostelManagement.pos.dto.StudentDTO;
@@ -37,7 +39,8 @@ import java.util.ResourceBundle;
  * @since : 0.1.0
  **/
 public class ReserveFormController implements Initializable {
-    private final PurchaseRoomBO purchaseRoomBO = (PurchaseRoomBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PurchaseRoom);
+
+    private final ReserveBO purchaseRoomBO = (ReserveBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.RESERVE);
 
     public AnchorPane MainAnchorPane;
     public AnchorPane SubAnchorPane;
@@ -75,8 +78,8 @@ public class ReserveFormController implements Initializable {
         txtContactNo.setEditable(false);
 
 
-        Double roomFee = Double.parseDouble(txtMonthlyRent.getText());
-        Double advance = Double.parseDouble(txtKeyMoney.getText());
+        double roomFee = Double.parseDouble(txtMonthlyRent.getText());
+        double advance = Double.parseDouble(txtKeyMoney.getText());
         String status = String.valueOf(roomFee - advance);
 
         boolean b = saveReserve(RegID, cmbStudentId.getValue(), cmbRoomId.getValue(), LocalDate.now(), txtMonthlyRent.getText(), advance, status);
@@ -186,9 +189,7 @@ public class ReserveFormController implements Initializable {
 
             if (newRoomId != null) {
                 try {
-                    if (!exitRooms(newRoomId + "")) {
-
-                    }
+                    exitRooms(newRoomId + "");
                     RoomDTO room = purchaseRoomBO.searchRoom(newRoomId + "");
                     txtRoomType.setText(room.getType());
                     txtQty.setText(String.valueOf(room.getQty()));
