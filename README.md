@@ -7,6 +7,7 @@ This is My ORM-Hibernate Course Work Project.
 * MySql
 * CSS
 * JavaFX
+* Useing Layered Architecture 
 
 #### © 2022  All Right Reserved Design By Nimesh Piyumantha
 #### If you hava any bugs or issues , If you want to explain my code pleace contact me on : nimeshpiyumantha11@gmail.com
