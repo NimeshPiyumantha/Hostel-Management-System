@@ -36,7 +36,6 @@ public class ReserveBOImpl implements ReserveBO {
             allReserve.add(new ReservationDTO(r.getRes_id(), r.getDate(), r.getStudent_id().getStudent_id(), r.getRoom_type_id().getRoom_type_id(), r.getKey_money(), r.getAdvance(), r.getStatus()));
         }
         return allReserve;
-
     }
 
     @Override
